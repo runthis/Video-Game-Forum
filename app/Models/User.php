@@ -9,55 +9,57 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+	use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'name',
+		'email',
+		'password',
 	];
-	
+
+	/**
+	 * The attributes that should be hidden for arrays.
+	 *
+	 * @var array
+	 */
+	protected $hidden = [
+		'password',
+		'remember_token',
+	];
+
+	/**
+	 * The attributes that should be cast to native types.
+	 *
+	 * @var array
+	 */
+	protected $casts = [
+		'email_verified_at' => 'datetime',
+	];
+
 	/**
 	 * @param string $column
 	 * @param mixed $value
 	 *
 	 * @return boolean
 	 */
-	public function exists(string $column, $value): bool {
+	public function exists(string $column, $value): bool
+	{
 		return $this->where($column, $value)->exists();
 	}
-	
+
 	/**
 	 * @param string $column
 	 * @param mixed $value
 	 *
 	 * @return array
 	 */
-	public function first(string $column, $value): array {
+	public function first(string $column, $value): array
+	{
 		return $this->where($column, $value)->first()->getAttributes();
 	}
 }

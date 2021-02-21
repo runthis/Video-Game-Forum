@@ -8,26 +8,68 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-	public function __construct(User $user) {
+	/**
+	 * @var User
+	 */
+	private $user;
+
+	/**
+	 * @param User $user
+	 */
+	public function __construct(User $user)
+	{
 		$this->user = $user;
-    }
-	
-	public function register(array $data) {
+	}
+
+	/**
+	 * Execute registration
+	 *
+	 * @param array $data
+	 *
+	 * @return void
+	 */
+	public function register(array $data): void
+	{
 		$this->user->name = $data['name'];
 		$this->user->email = $data['email'];
 		$this->user->password = Hash::make($data['password']);
 		$this->user->save();
 	}
-	
-	public function password_hash_match(string $password, string $hash): bool {
+
+	/**
+	 * Confirm a users password is correct
+	 *
+	 * @param string $password
+	 * @param string $hash
+	 *
+	 * @return boolean
+	 */
+	public function password_hash_match(string $password, string $hash): bool
+	{
 		return Hash::check($password, $hash);
-    }
-	
-	public function user_data(string $email): array {
+	}
+
+	/**
+	 * Collect user data by email
+	 *
+	 * @param string $email
+	 *
+	 * @return array
+	 */
+	public function user_data(string $email): array
+	{
 		return $this->user->first('email', $email);
-    }
-	
-	public function email_exists(string $email) {
+	}
+
+	/**
+	 * Check if email exists for user
+	 *
+	 * @param string $email
+	 *
+	 * @return boolean
+	 */
+	public function email_exists(string $email): bool
+	{
 		return $this->user->exists('email', $email);
 	}
 }
