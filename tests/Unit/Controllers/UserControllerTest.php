@@ -20,6 +20,10 @@ class UserControllerTest extends TestCase
 		$this->artisan('migrate');
 	}
 
+	/**
+	 * @covers \App\Http\Controllers\UserController::register
+	 * @uses \App\Models\User
+	 */
 	public function test_can_register()
 	{
 		$model = User::factory()->make();
@@ -39,6 +43,10 @@ class UserControllerTest extends TestCase
 		]);
 	}
 
+	/**
+	 * @covers \App\Http\Controllers\UserController::password_hash_match
+	 * @uses \App\Models\User
+	 */
 	public function test_can_password_hash_match()
 	{
 		$model = User::factory()->make();
@@ -52,6 +60,10 @@ class UserControllerTest extends TestCase
 		$this->assertTrue($password_hash_match);
 	}
 
+	/**
+	 * @covers \App\Http\Controllers\UserController::password_hash_match
+	 * @uses \App\Models\User
+	 */
 	public function test_can_password_hash_not_match()
 	{
 		$model = User::factory()->make();
@@ -65,6 +77,10 @@ class UserControllerTest extends TestCase
 		$this->assertFalse($password_hash_match);
 	}
 
+	/**
+	 * @covers \App\Http\Controllers\UserController::user_data
+	 * @uses \App\Models\User
+	 */
 	public function test_can_get_user_data()
 	{
 		$email = $this->faker->unique()->safeEmail;
@@ -82,6 +98,10 @@ class UserControllerTest extends TestCase
 		$this->assertEquals($email, $user_data['email']);
 	}
 
+	/**
+	 * @covers \App\Http\Controllers\UserController::email_exists
+	 * @uses \App\Models\User
+	 */
 	public function test_can_check_email_exists()
 	{
 		$email = $this->faker->unique()->safeEmail;
@@ -97,6 +117,10 @@ class UserControllerTest extends TestCase
 		$this->assertTrue($email_exists);
 	}
 
+	/**
+	 * @covers \App\Http\Controllers\UserController::email_exists
+	 * @uses \App\Models\User
+	 */
 	public function test_can_check_email_doesnt_exist()
 	{
 		$model = User::factory()->make();
