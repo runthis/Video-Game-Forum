@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>Register</title>
+	<link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon"/>
 	<link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
 </head>
 <body>
