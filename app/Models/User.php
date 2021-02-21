@@ -39,5 +39,25 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
+	];
+	
+	/**
+	 * @param string $column
+	 * @param mixed $value
+	 *
+	 * @return boolean
+	 */
+	public function exists(string $column, $value): bool {
+		return $this->where($column, $value)->exists();
+	}
+	
+	/**
+	 * @param string $column
+	 * @param mixed $value
+	 *
+	 * @return array
+	 */
+	public function first(string $column, $value): array {
+		return $this->where($column, $value)->first()->getAttributes();
+	}
 }
