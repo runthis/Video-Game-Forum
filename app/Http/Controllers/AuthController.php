@@ -17,7 +17,7 @@ class AuthController extends Controller
 	public function register_user(Request $request, UserController $user): \Illuminate\Http\RedirectResponse
 	{
 		$request->validate([
-			'name' => 'required',
+			'name' => 'required|regex:/^[a-z0-9][a-z0-9_]*[a-z0-9]$/i',
 			'email' => 'required|email',
 			'password' => 'required|min:8',
 			'confirm_password' => 'required|same:password'
