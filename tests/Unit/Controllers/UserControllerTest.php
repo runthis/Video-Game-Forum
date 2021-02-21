@@ -15,6 +15,8 @@ class UserControllerTest extends TestCase
 	public function setUp(): void
 	{
 		parent::setUp();
+
+		// Set up database
 		$this->artisan('migrate');
 	}
 
