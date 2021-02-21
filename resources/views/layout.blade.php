@@ -1,10 +1,16 @@
 <html>
 <head>
 	<title>Register</title>
+	<link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
 </head>
 <body>
 	<div>
 		@yield('content')
 	</div>
+	
+	<script src="{{ asset(mix('js/app.js')) }}"></script>
+	<script src="{{ asset(mix('js/manifest.js')) }}"></script>
+	<script src="{{ asset(mix('js/vendor.js')) }}"></script>
+	
 </body>
 </html>
