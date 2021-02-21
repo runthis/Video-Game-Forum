@@ -1,4 +1,4 @@
-name: Unit/Feature Tests
+name: unit-feature-tests
 
 on:
   push:
