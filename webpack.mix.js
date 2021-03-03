@@ -15,3 +15,10 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
 	.sourceMaps()
 	.extract(['bootstrap','jquery','popper.js']);
+
+mix.styles([
+	'resources/css/home.css',
+	'resources/css/forum-font.css'
+], 'public/css/all.css').options({
+	processCssUrls: false
+}).version();
