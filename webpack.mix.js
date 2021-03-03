@@ -19,6 +19,6 @@ mix.js('resources/js/app.js', 'public/js')
 mix.styles([
 	'resources/css/home.css',
 	'resources/css/forum-font.css'
-], 'public/css/all.css').options({
+], 'public/css/home.css').options({
 	processCssUrls: false
 }).version();
