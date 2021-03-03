@@ -4,5 +4,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/runthis/forum)
 
 Current functionality:
-Register
-Login
+
+**Register**
+
+**Login**
