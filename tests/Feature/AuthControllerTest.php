@@ -129,7 +129,6 @@ class AuthControllerTest extends TestCase
 
 	public function test_can_successfully_login()
 	{
-		$this->model->save();
 		$this->user->register(['name' => $this->name, 'email' => $this->email, 'password' => $this->password]);
 
 		$response = $this->withoutMiddleware('VerifyCsrfToken')->post(
