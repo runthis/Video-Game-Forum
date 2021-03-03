@@ -44,7 +44,7 @@ class AuthControllerTest extends TestCase
 
 	public function test_can_successfully_register()
 	{
-		$response = $this->withoutMiddleware('VerifyCsrfToken')->post(
+		$response = $this->withoutMiddleware(VerifyCsrfToken::class)->post(
 			'/registerUser',
 			[
 				'name' => $this->name,
@@ -65,7 +65,7 @@ class AuthControllerTest extends TestCase
 	{
 		$username = 'jsmith-88';
 
-		$response = $this->withoutMiddleware('VerifyCsrfToken')->post(
+		$response = $this->withoutMiddleware(VerifyCsrfToken::class)->post(
 			'/registerUser',
 			[
 				'name' => $username,
@@ -82,7 +82,7 @@ class AuthControllerTest extends TestCase
 	{
 		$email = 'fake and bad';
 
-		$response = $this->withoutMiddleware('VerifyCsrfToken')->post(
+		$response = $this->withoutMiddleware(VerifyCsrfToken::class)->post(
 			'/registerUser',
 			[
 				'name' => $this->name,
@@ -97,7 +97,7 @@ class AuthControllerTest extends TestCase
 
 	public function test_can_fail_register_with_non_matching_passwords()
 	{
-		$response = $this->withoutMiddleware('VerifyCsrfToken')->post(
+		$response = $this->withoutMiddleware(VerifyCsrfToken::class)->post(
 			'/registerUser',
 			[
 				'name' => $this->name,
@@ -114,7 +114,7 @@ class AuthControllerTest extends TestCase
 	{
 		$short_password = 'abc';
 
-		$response = $this->withoutMiddleware('VerifyCsrfToken')->post(
+		$response = $this->withoutMiddleware(VerifyCsrfToken::class)->post(
 			'/registerUser',
 			[
 				'name' => $this->name,
@@ -131,7 +131,7 @@ class AuthControllerTest extends TestCase
 	{
 		$this->user->register(['name' => $this->name, 'email' => $this->email, 'password' => $this->password]);
 
-		$response = $this->withoutMiddleware('VerifyCsrfToken')->post(
+		$response = $this->withoutMiddleware(VerifyCsrfToken::class)->post(
 			'/loginUser',
 			[
 				'email' => $this->email,
@@ -148,7 +148,7 @@ class AuthControllerTest extends TestCase
 
 	public function test_can_fail_login()
 	{
-		$response = $this->withoutMiddleware('VerifyCsrfToken')->post(
+		$response = $this->withoutMiddleware(VerifyCsrfToken::class)->post(
 			'/loginUser',
 			[
 				'email' => $this->email,
