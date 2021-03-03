@@ -1,5 +1,7 @@
 @extends('layout')
 
+@section('title', 'Register')
+
 @section('content')
 <div>
 	<h3>Register User</h3>

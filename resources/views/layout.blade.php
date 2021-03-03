@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Register</title>
+	<title>Forum - @yield('title')</title>
 	<link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon"/>
 	<link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
 </head>

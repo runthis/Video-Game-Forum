@@ -1,5 +1,7 @@
 @extends('layout')
 
+@section('title', 'Login')
+
 @section('content')
 <div>
 	<h3>Login User</h3>
