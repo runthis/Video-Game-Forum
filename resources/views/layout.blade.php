@@ -5,7 +5,7 @@
 	<link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
 </head>
 <body>
-	<div>
+	<div class="container-fluid">
 		@yield('content')
 	</div>
 	
