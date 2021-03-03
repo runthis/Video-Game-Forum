@@ -10,12 +10,12 @@
 	
 	<div>
 		<label for="subject">Subject</label>
-		<input type="text" name="subject" id="subject" value="{{ old('subject') }}" placeholder="Enter Email" required>
+		<input type="text" name="subject" id="subject" value="{{ old('subject') }}" placeholder="What is this about..." required>
 	</div>
 	
 	<div>
 		<label for="body">Body</label>
-		<textarea name="body" id="body" required>{{ old('body') }}</textarea>
+		<textarea name="body" id="body" placeholder="Tell us about it..." required>{{ old('body') }}</textarea>
 	</div>
 	
 	<button type="submit">Submit</button>
