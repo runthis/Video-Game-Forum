@@ -36,7 +36,7 @@ class PostsControllerTest extends TestCase
 
 	public function test_can_not_add_short_post_body()
 	{
-		$data = ['subject' => 'abc', 'body' => $this->faker->paragraph];
+		$data = ['subject' => $this->faker->sentence, 'body' => 'abc'];
 		$response = $this->withSession(['user' => 2])->post(route('posts.create'), $data);
 
 		$this->assertDatabaseMissing('posts', ['subject' => $data['subject']]);
