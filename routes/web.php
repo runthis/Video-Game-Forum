@@ -25,5 +25,5 @@ Route::post('registerUser', 'App\Http\Controllers\AuthController@register_user')
 Route::post('loginUser', 'App\Http\Controllers\AuthController@login');
 
 Route::group(['middleware' => 'user.authenticated'], function () {
-	Route::post('createPost', 'App\Http\Controllers\PostsController@create');
+	Route::post('createPost', 'App\Http\Controllers\PostsController@create')->name('posts.create');
 });

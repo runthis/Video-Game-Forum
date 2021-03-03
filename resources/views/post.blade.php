@@ -15,7 +15,7 @@
 	
 	<div>
 		<label for="body">Body</label>
-		<textarea id="body" required>{{ old('body') }}</textarea>
+		<textarea name="body" id="body" required>{{ old('body') }}</textarea>
 	</div>
 	
 	<button type="submit">Submit</button>
