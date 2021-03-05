@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'forum-font';
-  src: url('../fonts/forum-font.eot?93181585');
-  src: url('../fonts/forum-font.eot?93181585#iefix') format('embedded-opentype'),
-       url('../fonts/forum-font.woff2?93181585') format('woff2'),
-       url('../fonts/forum-font.woff?93181585') format('woff'),
-       url('../fonts/forum-font.ttf?93181585') format('truetype'),
-       url('../fonts/forum-font.svg?93181585#forum-font') format('svg');
+  src: url('../fonts/forum-font.eot?4305240');
+  src: url('../fonts/forum-font.eot?4305240#iefix') format('embedded-opentype'),
+       url('../fonts/forum-font.woff2?4305240') format('woff2'),
+       url('../fonts/forum-font.woff?4305240') format('woff'),
+       url('../fonts/forum-font.ttf?4305240') format('truetype'),
+       url('../fonts/forum-font.svg?4305240#forum-font') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'forum-font';
-    src: url('../font/forum-font.svg?93181585#forum-font') format('svg');
+    src: url('../font/forum-font.svg?86004647#forum-font') format('svg');
   }
 }
 */
@@ -57,3 +57,5 @@
  
 .icon-downvote:before { content: '\f004'; } /* '' */
 .icon-upvote:before { content: '\f005'; } /* '' */
+.icon-comments:before { content: '\f03d'; } /* '' */
+.icon-viewed:before { content: '\f082'; } /* '' */
