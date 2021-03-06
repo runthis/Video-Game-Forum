@@ -31,7 +31,7 @@ class PostsController extends Controller
 
 	private function add_create(Request $request)
 	{
-		$this->posts->owner = $request->session()->get('user');
+		$this->posts->owner = $request->session()->get('forum.user');
 		$this->posts->ip = $request->ip();
 		$this->posts->subject = $request->subject;
 		$this->posts->body = $request->body;

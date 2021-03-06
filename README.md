@@ -47,6 +47,10 @@
         - [ ] Logo
         - [ ] Style
         - [ ] Themes
+        - [ ] Disable Auth System
+            - [ ] Provide details how to integrate into existing website
+            - [ ] Set custom url for login
+            - [ ] Set custom url for register
     - [ ] View/Edit users (staff, admin)
         - [ ] Username
         - [ ] Avatar

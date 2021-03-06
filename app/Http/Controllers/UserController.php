@@ -72,4 +72,16 @@ class UserController extends Controller
 	{
 		return $this->user->exists('email', $email);
 	}
+
+	/**
+	 * Check if name exists for user
+	 *
+	 * @param string $name
+	 *
+	 * @return boolean
+	 */
+	public function name_exists(string $name): bool
+	{
+		return $this->user->exists('email', $name);
+	}
 }

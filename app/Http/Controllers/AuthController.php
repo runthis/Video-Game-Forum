@@ -24,15 +24,20 @@ class AuthController extends Controller
 		]);
 
 		if ($user->email_exists($request->email)) {
-			$request->session()->flash('register_status', 'This Email already exists.');
+			$request->session()->flash('register_status', 'The email address provided already exists.');
+
+			return redirect('/register');
+		}
+
+		if ($user->name_exists($request->name)) {
+			$request->session()->flash('register_status', 'The username provided already exists.');
 
 			return redirect('/register');
 		}
 
 		$user->register($request->input());
-		$request->session()->flash('register_status', 'User has been registered successfully');
 
-		return redirect('/register');
+		return redirect('/login');
 	}
 
 	/**
@@ -58,8 +63,14 @@ class AuthController extends Controller
 			return redirect('/login');
 		}
 
-		$request->session()->put('user', $user_data['id']);
-		$request->session()->put('name', $user_data['name']);
+		$request->session()->put('forum.user', $user_data['id']);
+		$request->session()->put('forum.name', $user_data['name']);
+		$request->session()->put('forum.lastAction', 'login');
+		$request->session()->put('forum.lastActionTime', time());
+
+		if ($request->session()->has('forum.lastPage')) {
+			return redirect($request->session()->get('forum.lastPage'));
+		}
 
 		return redirect('/');
 	}

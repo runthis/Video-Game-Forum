@@ -54,7 +54,7 @@ class AuthControllerTest extends TestCase
 			]
 		);
 
-		$expected_redirect = url()->getRequest()->getSchemeAndHttpHost() . '/register';
+		$expected_redirect = url()->getRequest()->getSchemeAndHttpHost() . '/login';
 
 		$response->assertStatus(302);
 		$response->assertRedirect($expected_redirect);
@@ -143,7 +143,7 @@ class AuthControllerTest extends TestCase
 
 		$response->assertStatus(302);
 		$response->assertRedirect($expected_redirect);
-		$response->assertSessionHas('user');
+		$response->assertSessionHas('forum.user');
 	}
 
 	public function test_can_fail_login()

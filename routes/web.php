@@ -17,13 +17,13 @@ Route::get('/', function () {
 	return view('home');
 });
 
-Route::view('register', 'register');
+Route::view('register', 'register')->name('register');
 Route::view('login', 'login')->name('login');
-Route::view('post', 'post');
 
 Route::post('registerUser', 'App\Http\Controllers\AuthController@register_user');
 Route::post('loginUser', 'App\Http\Controllers\AuthController@login');
 
 Route::group(['middleware' => 'user.authenticated'], function () {
+	Route::view('post', 'post')->name('post');
 	Route::post('createPost', 'App\Http\Controllers\PostsController@create')->name('posts.create');
 });

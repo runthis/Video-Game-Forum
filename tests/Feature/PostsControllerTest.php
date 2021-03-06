@@ -19,7 +19,7 @@ class PostsControllerTest extends TestCase
 	public function test_can_add_post()
 	{
 		$data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
-		$response = $this->withSession(['user' => 2])->post(route('posts.create'), $data);
+		$response = $this->withSession(['forum.user' => 2])->post(route('posts.create'), $data);
 
 		$this->assertDatabaseHas('posts', ['subject' => $data['subject']]);
 		$response->assertStatus(302);
@@ -29,7 +29,7 @@ class PostsControllerTest extends TestCase
 	public function test_can_not_add_short_post_subject()
 	{
 		$data = ['subject' => 'abc', 'body' => $this->faker->paragraph];
-		$response = $this->withSession(['user' => 2])->post(route('posts.create'), $data);
+		$response = $this->withSession(['forum.user' => 2])->post(route('posts.create'), $data);
 
 		$this->assertDatabaseMissing('posts', ['subject' => $data['subject']]);
 	}
@@ -37,7 +37,7 @@ class PostsControllerTest extends TestCase
 	public function test_can_not_add_short_post_body()
 	{
 		$data = ['subject' => $this->faker->sentence, 'body' => 'abc'];
-		$response = $this->withSession(['user' => 2])->post(route('posts.create'), $data);
+		$response = $this->withSession(['forum.user' => 2])->post(route('posts.create'), $data);
 
 		$this->assertDatabaseMissing('posts', ['subject' => $data['subject']]);
 	}
@@ -45,7 +45,7 @@ class PostsControllerTest extends TestCase
 	public function test_can_not_add_long_post_subject()
 	{
 		$data = ['subject' => implode(',', $this->faker->sentences(255)), 'body' => $this->faker->paragraph];
-		$response = $this->withSession(['user' => 2])->post(route('posts.create'), $data);
+		$response = $this->withSession(['forum.user' => 2])->post(route('posts.create'), $data);
 
 		$this->assertDatabaseMissing('posts', ['subject' => $data['subject']]);
 	}
@@ -53,7 +53,7 @@ class PostsControllerTest extends TestCase
 	public function test_can_not_add_long_post_body()
 	{
 		$data = ['subject' => $this->faker->sentence, 'body' => implode(',', $this->faker->paragraphs(50))];
-		$response = $this->withSession(['user' => 2])->post(route('posts.create'), $data);
+		$response = $this->withSession(['forum.user' => 2])->post(route('posts.create'), $data);
 
 		$this->assertDatabaseMissing('posts', ['subject' => $data['subject']]);
 	}
@@ -61,7 +61,7 @@ class PostsControllerTest extends TestCase
 	public function test_can_not_add_empty_post_data()
 	{
 		$data = ['subject' => '', 'body' => ''];
-		$response = $this->withSession(['user' => 2])->post(route('posts.create'), $data);
+		$response = $this->withSession(['forum.user' => 2])->post(route('posts.create'), $data);
 
 		$this->assertDatabaseMissing('posts', ['subject' => $data['subject']]);
 	}
