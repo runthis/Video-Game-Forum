@@ -56,7 +56,12 @@ class PostsController extends Controller
 	{
 		$url = strtolower(trim($subject));
 		$url = preg_replace('/[^\p{L}\p{N}]+/', '-', $url);
+		$url = preg_replace("/\x{FFFD}/u", '', $url);
 		$url = substr($url, 0, 44);
+
+		if (strlen($url) < 5) {
+			$url = 'posts';
+		}
 
 		return $url;
 	}

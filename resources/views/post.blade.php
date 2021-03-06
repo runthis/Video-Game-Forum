@@ -48,23 +48,23 @@
 			</div>
 		</div>
 	</div>
-	
-		<div class="col-3 d-none d-md-block box box-right ml-2 h-100">
-			
-			<div class="forum-actions my-details">
-				<a class="text-white" href="{{url('/')}}">
-					<div class="go-back p-2 text-white small">
-						<i class="icon-left"></i> Go back to main page
-					</div>
-				</a>
-			</div>
-			
-			<div class="logo-container">
-				<div class="logo mb-3 text-center">
-					<div class="text-muted">v0.01</div>
+
+	<div class="col-3 d-none d-md-block box box-right ml-2 h-100">
+		
+		<div class="forum-actions my-details">
+			<a class="text-white" href="{{url('/')}}">
+				<div class="go-back p-2 text-white small">
+					<i class="icon-left"></i> Go back to main page
 				</div>
+			</a>
+		</div>
+		
+		<div class="logo-container">
+			<div class="logo mb-3 text-center">
+				<div class="text-muted">v0.01</div>
 			</div>
 		</div>
+	</div>
 </div>
 
 @endsection
