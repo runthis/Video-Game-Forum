@@ -23,12 +23,14 @@
     - [x] View
     - [x] Pretty urls
     - [x] Create
+    - [x] Native emoji support
     - [ ] Edit `owner of post or staff`
     - [ ] Delete `owner of post or staff`
     - [ ] Sticky `staff`
     - [ ] Archive `staff`
 - [ ] Replies
     - [x] View
+    - [x] Native emoji support
     - [ ] Create
     - [ ] Edit `owner of message or staff`
     - [ ] Delete `owner of message or staff`
