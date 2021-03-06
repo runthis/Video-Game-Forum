@@ -25,4 +25,9 @@ class Posts extends Model
 	{
 		return $this->hasMany(Reply::class, 'post');
 	}
+
+	public function getBodyAttribute($value)
+	{
+		return nl2br(htmlentities($value, ENT_QUOTES, 'UTF-8'));
+	}
 }

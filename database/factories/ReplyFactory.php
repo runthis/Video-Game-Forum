@@ -25,7 +25,7 @@ class ReplyFactory extends Factory
 			'owner' => rand(1, 6),
 			'ip' => rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255),
 			'post' => rand(1, 72),
-			'body' => $this->faker->paragraph
+			'body' => implode(str_repeat("\n", rand(1, 9)), $this->faker->paragraphs(rand(1, 9))),
 		];
 	}
 }

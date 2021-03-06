@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStickyColumnToPosts extends Migration
+class AddLinkColumnToPosts extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -14,7 +14,7 @@ class AddStickyColumnToPosts extends Migration
 	public function up()
 	{
 		Schema::table('posts', function (Blueprint $table) {
-			$table->boolean('sticky')->default(false);
+			$table->string('link', 50);
 		});
 	}
 
@@ -26,7 +26,7 @@ class AddStickyColumnToPosts extends Migration
 	public function down()
 	{
 		Schema::table('posts', function (Blueprint $table) {
-			$table->dropColumn('sticky');
+			$table->dropColumn('link');
 		});
 	}
 }

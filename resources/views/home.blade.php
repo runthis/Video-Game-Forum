@@ -47,7 +47,7 @@
 					<td class="pl-4  pt-2" valign="top">
 						<div class="thread-content mt-1">
 							<div class="thread-title">
-								<a href="thread/name-here">
+								<a href="thread/{{$post->link}}/">
 									{{$post->subject}}
 								</a>
 							</div>
@@ -91,7 +91,7 @@
 					<td class="pl-4  pt-2" valign="top">
 						<div class="thread-content mt-1">
 							<div class="thread-title">
-								<a href="thread/name-here">
+								<a href="thread/{{$post->link}}/">
 									{{$post->subject}}
 								</a>
 							</div>

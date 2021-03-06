@@ -30,6 +30,15 @@ Route::view('login', 'login')->name('login');
 Route::post('registerUser', 'App\Http\Controllers\AuthController@register_user');
 Route::post('loginUser', 'App\Http\Controllers\AuthController@login');
 
+Route::redirect('thread', url(''));
+
+Route::get('thread/{page}', function ($link) {
+	$PostsController = new PostsController;
+	$post = $PostsController->get_single_post($link);
+
+	return view('thread')->with('post', $post);
+});
+
 Route::group(['middleware' => 'user.authenticated'], function () {
 	Route::view('post', 'post')->name('post');
 	Route::post('createPost', 'App\Http\Controllers\PostsController@create')->name('posts.create');

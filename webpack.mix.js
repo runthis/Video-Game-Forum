@@ -19,6 +19,14 @@ mix.styles([
 	processCssUrls: false
 }).version();
 
+mix.styles([
+	'resources/css/thread.css',
+	'resources/css/forum-font.css',
+	'resources/css/os-theme-round-light.css'
+], 'public/css/thread.css').options({
+	processCssUrls: false
+}).version();
+
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
 	.sourceMaps()

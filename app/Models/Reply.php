@@ -15,4 +15,14 @@ class Reply extends Model
 	{
 		return $this->belongsTo(Posts::class, 'post');
 	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class, 'owner');
+	}
+
+	public function getBodyAttribute($value)
+	{
+		return nl2br(htmlentities($value, ENT_QUOTES, 'UTF-8'));
+	}
 }

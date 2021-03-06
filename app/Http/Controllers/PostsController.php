@@ -18,16 +18,25 @@ class PostsController extends Controller
 
 	public function get_posts(bool $sticky = false)
 	{
-		return Posts::select('id', 'owner', 'subject', 'created_at')->where('sticky', $sticky)->latest()->get();
+		return Posts::select('id', 'owner', 'subject', 'link', 'created_at')->where('sticky', $sticky)->latest()->get();
+	}
+
+	public function get_single_post(string $link)
+	{
+		return Posts::select('id', 'owner', 'subject', 'body', 'link', 'sticky', 'created_at')->where('link', $link)->first();
 	}
 
 	private function add_create(Request $request)
 	{
+		$friendly_url = $this->friendly_url($request->subject);
+		$link = $this->generate_link($friendly_url);
+
 		Posts::create([
 			'owner' => $request->session()->get('forum.user'),
 			'ip' => $request->ip(),
 			'subject' => $request->subject,
 			'body' => $request->body,
+			'link'->$link
 		]);
 	}
 
@@ -39,5 +48,25 @@ class PostsController extends Controller
 		]);
 
 		return $this;
+	}
+
+	public function friendly_url(string $subject)
+	{
+		$url = strtolower(trim($subject));
+		$url = preg_replace('/[^\p{L}\p{N} ]+/', '-', $url);
+		$url = substr($url, 0, 44);
+
+		return $url;
+	}
+
+	public function generate_link(string $link)
+	{
+		if (Posts::exists('link', $link)) {
+			$link = $link . '-' . mt_rand(0, 9);
+
+			return $this->generate_link($link);
+		}
+
+		return $link;
 	}
 }
