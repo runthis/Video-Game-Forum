@@ -22,7 +22,7 @@ class PostsFactory extends Factory
 	 */
 	public function definition()
 	{
-		$subject = $this->faker->sentence;
+		$subject = $this->faker->realText($this->faker->numberBetween(10, 150));
 
 		$friendly_url = $this->friendly_url($subject);
 		$link = $this->generate_link($friendly_url);
@@ -31,10 +31,21 @@ class PostsFactory extends Factory
 			'owner' => rand(1, 6),
 			'ip' => rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255),
 			'subject' => $subject,
-			'body' => implode(str_repeat("\n", rand(1, 9)), $this->faker->paragraphs(rand(1, 9))),
+			'body' => $this->generate_paragraphs(rand(2, 5)),
 			'sticky' => $this->should_sticky(),
 			'link' => $link
 		];
+	}
+
+	private function generate_paragraphs(int $length): string
+	{
+		$text = '';
+
+		for ($i = 0; $i <= $length; $i++) {
+			$text .= $this->faker->realText($this->faker->numberBetween(50, 300)) . str_repeat("\n", rand(0, 4));
+		}
+
+		return $text;
 	}
 
 	public function friendly_url(string $subject)

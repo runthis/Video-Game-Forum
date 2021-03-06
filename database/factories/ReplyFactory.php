@@ -25,7 +25,18 @@ class ReplyFactory extends Factory
 			'owner' => rand(1, 6),
 			'ip' => rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255),
 			'post' => rand(1, 72),
-			'body' => implode(str_repeat("\n", rand(1, 9)), $this->faker->paragraphs(rand(1, 9))),
+			'body' => $this->generate_paragraphs(rand(2, 5)),
 		];
+	}
+
+	private function generate_paragraphs(int $length): string
+	{
+		$text = '';
+
+		for ($i = 0; $i <= $length; $i++) {
+			$text .= $this->faker->realText($this->faker->numberBetween(50, 300)) . str_repeat("\n", rand(0, 4));
+		}
+
+		return $text;
 	}
 }
