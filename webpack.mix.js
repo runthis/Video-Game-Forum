@@ -11,14 +11,22 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.styles([
+	'resources/css/home.css',
+	'resources/css/forum-font.css',
+	'resources/css/os-theme-round-light.css'
+], 'public/css/home.css').options({
+	processCssUrls: false
+}).version();
+
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
 	.sourceMaps()
-	.extract(['bootstrap','jquery','popper.js']);
+	.extract(['bootstrap','jquery','popper.js','overlayscrollbars']);
 
-mix.styles([
-	'resources/css/home.css',
-	'resources/css/forum-font.css'
-], 'public/css/home.css').options({
+mix.scripts([
+	'resources/js/scrollbars.js',
+	'resources/js/home.js'
+], 'public/js/home.js').options({
 	processCssUrls: false
 }).version();
