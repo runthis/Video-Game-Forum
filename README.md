@@ -5,6 +5,8 @@
 
 ![image](https://user-images.githubusercontent.com/8216720/110219523-57940280-7e85-11eb-8c2b-c2447adede03.png)
 
+![image](https://user-images.githubusercontent.com/8216720/110219565-a6da3300-7e85-11eb-9537-e6bd77c3bec6.png)
+
 #### Current Feature list:
 
 *Legend:*
