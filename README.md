@@ -50,6 +50,7 @@
         - [ ] Mass archive or mass delete posts or replies
         - [ ] GDPR package data and email (admin)
         - [ ] GDPR delete account (admin)
+        - [ ] Change user role (admin)
     - [ ] Stats / Helpers (staff, admin)
         - [ ] New users
         - [ ] New posts
