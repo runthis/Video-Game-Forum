@@ -16,12 +16,14 @@
 - [x] Register
 - [x] Login
 - [ ] Posts
+    - [x] View
     - [x] Create
     - [ ] Edit `owner of post or staff`
     - [ ] Delete `owner of post or staff`
     - [ ] Sticky `staff`
     - [ ] Archive `staff`
 - [ ] Replies
+    - [x] View
     - [ ] Create
     - [ ] Edit `owner of message or staff`
     - [ ] Delete `owner of message or staff`
