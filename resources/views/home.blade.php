@@ -62,7 +62,7 @@
 					</td>
 					
 					<td class="thread-meta pl-3 pr-3">
-						<i class="icon-comments mr-1" data-id="{{$post['id']}}"></i> 1,863
+						<i class="icon-comments mr-1" data-id="{{$post['id']}}"></i> {{$post->reply->count()}}
 					</td>
 				</tr>
 			</table>
@@ -106,7 +106,7 @@
 					</td>
 					
 					<td class="thread-meta pl-3 pr-3">
-						<i class="icon-comments mr-1" data-id="{{$post['id']}}"></i> 1,863
+						<i class="icon-comments mr-1" data-id="{{$post['id']}}"></i> {{$post->reply->count()}}
 					</td>
 				</tr>
 			</table>

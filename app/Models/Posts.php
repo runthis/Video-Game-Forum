@@ -20,4 +20,9 @@ class Posts extends Model
 	{
 		return $this->belongsTo(User::class, 'owner');
 	}
+
+	public function reply()
+	{
+		return $this->hasMany(Reply::class, 'post');
+	}
 }
