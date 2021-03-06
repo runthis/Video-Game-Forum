@@ -2,12 +2,16 @@
 
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/runthis/forum/unit-feature-tests/master)](https://github.com/runthis/forum/actions)
 [![GitHub last commit](https://img.shields.io/github/last-commit/runthis/forum)](https://github.com/runthis/forum/commits/master)
+[![Languages](https://img.shields.io/github/languages/count/runthis/Video-Game-Forum)](https://github.com/runthis/Video-Game-Forum/search?l=PHP)
+[![Main Languages](https://img.shields.io/github/languages/top/runthis/Video-Game-Forum)](https://github.com/runthis/Video-Game-Forum/search?l=PHP)
+
 
 ![image](https://user-images.githubusercontent.com/8216720/110219523-57940280-7e85-11eb-8c2b-c2447adede03.png)
 
 ![image](https://user-images.githubusercontent.com/8216720/110219565-a6da3300-7e85-11eb-9537-e6bd77c3bec6.png)
 
 ![image](https://user-images.githubusercontent.com/8216720/110221177-4d2b3600-7e90-11eb-8baf-b49fd13138ec.png)
+
 
 #### Current Feature list:
 
