@@ -52,7 +52,7 @@
         - [ ] Logo
         - [ ] Style
         - [ ] Themes
-        - [ ] Disable Auth System
+        - [ ] Disable Auth System (login, register, change name/password/email, setup 2fa)
             - [ ] Provide details how to integrate into existing website
             - [ ] Set custom url for login
             - [ ] Set custom url for register
