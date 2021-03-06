@@ -127,6 +127,42 @@ class AuthControllerTest extends TestCase
 		$this->assertDatabaseMissing('users', ['name' => $this->name]);
 	}
 
+	public function test_can_fail_register_with_duplicate_email()
+	{
+		$this->user->register(['name' => $this->name, 'email' => $this->email, 'password' => $this->password]);
+
+		$name = 'jsmith_01';
+
+		$response = $this->withoutMiddleware(VerifyCsrfToken::class)->post(
+			'/registerUser',
+			[
+				'name' => $name,
+				'email' => $this->email,
+				'password' => $this->password,
+				'confirm_password' => $this->password,
+			]
+		);
+
+		$this->assertDatabaseCount('users', 1);
+	}
+
+	public function test_can_fail_register_with_duplicate_name()
+	{
+		$this->user->register(['name' => $this->name, 'email' => $this->email, 'password' => $this->password]);
+
+		$response = $this->withoutMiddleware(VerifyCsrfToken::class)->post(
+			'/registerUser',
+			[
+				'name' => $this->name,
+				'email' => $this->faker->unique()->safeEmail,
+				'password' => $this->password,
+				'confirm_password' => $this->password,
+			]
+		);
+
+		$this->assertDatabaseCount('users', 1);
+	}
+
 	public function test_can_successfully_login()
 	{
 		$this->user->register(['name' => $this->name, 'email' => $this->email, 'password' => $this->password]);

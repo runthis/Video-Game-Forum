@@ -82,6 +82,6 @@ class UserController extends Controller
 	 */
 	public function name_exists(string $name): bool
 	{
-		return $this->user->exists('email', $name);
+		return $this->user->exists('name', $name);
 	}
 }
