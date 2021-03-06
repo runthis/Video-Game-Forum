@@ -41,5 +41,8 @@ Route::get('thread/{page}', function ($link) {
 
 Route::group(['middleware' => 'user.authenticated'], function () {
 	Route::view('post', 'post')->name('post');
+});
+
+Route::group(['middleware' => ['user.authenticated', 'throttle:posts']], function () {
 	Route::post('createPost', 'App\Http\Controllers\PostsController@create')->name('posts.create');
 });

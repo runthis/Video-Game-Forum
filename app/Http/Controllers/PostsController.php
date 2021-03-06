@@ -9,11 +9,13 @@ use Session;
 
 class PostsController extends Controller
 {
+	private $new_link = '/';
+
 	public function create(Request $request)
 	{
 		$this->validate_create($request)->add_create($request);
 
-		return redirect('/');
+		return redirect('/thread/' . $this->new_link);
 	}
 
 	public function get_posts(bool $sticky = false)
@@ -29,14 +31,14 @@ class PostsController extends Controller
 	private function add_create(Request $request)
 	{
 		$friendly_url = $this->friendly_url($request->subject);
-		$link = $this->generate_link($friendly_url);
+		$this->new_link = $this->generate_link($friendly_url);
 
 		Posts::create([
 			'owner' => $request->session()->get('forum.user'),
 			'ip' => $request->ip(),
 			'subject' => $request->subject,
 			'body' => $request->body,
-			'link' => $link
+			'link' => $this->new_link
 		]);
 	}
 
@@ -53,7 +55,7 @@ class PostsController extends Controller
 	public function friendly_url(string $subject)
 	{
 		$url = strtolower(trim($subject));
-		$url = preg_replace('/[^\p{L}\p{N} ]+/', '-', $url);
+		$url = preg_replace('/[^\p{L}\p{N}]+/', '-', $url);
 		$url = substr($url, 0, 44);
 
 		return $url;

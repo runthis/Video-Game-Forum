@@ -22,8 +22,6 @@ class PostsControllerTest extends TestCase
 		$response = $this->withSession(['forum.user' => 2])->post(route('posts.create'), $data);
 
 		$this->assertDatabaseHas('posts', ['subject' => $data['subject']]);
-		$response->assertStatus(302);
-		$response->assertRedirect(url()->getRequest()->getSchemeAndHttpHost());
 	}
 
 	public function test_can_not_add_short_post_subject()
