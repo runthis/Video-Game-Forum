@@ -9,19 +9,6 @@ use Session;
 
 class PostsController extends Controller
 {
-	/**
-	 * @var Posts
-	 */
-	private $posts;
-
-	/**
-	 * @param Posts $posts
-	 */
-	public function __construct(Posts $posts)
-	{
-		$this->posts = $posts;
-	}
-
 	public function create(Request $request)
 	{
 		$this->validate_create($request)->add_create($request);
@@ -29,13 +16,19 @@ class PostsController extends Controller
 		return redirect('/');
 	}
 
+	public function get_posts(bool $sticky = false)
+	{
+		return Posts::select('id', 'owner', 'subject', 'created_at')->where('sticky', $sticky)->latest()->get();
+	}
+
 	private function add_create(Request $request)
 	{
-		$this->posts->owner = $request->session()->get('forum.user');
-		$this->posts->ip = $request->ip();
-		$this->posts->subject = $request->subject;
-		$this->posts->body = $request->body;
-		$this->posts->save();
+		Posts::create([
+			'owner' => $request->session()->get('forum.user'),
+			'ip' => $request->ip(),
+			'subject' => $request->subject,
+			'body' => $request->body,
+		]);
 	}
 
 	private function validate_create(Request $request)

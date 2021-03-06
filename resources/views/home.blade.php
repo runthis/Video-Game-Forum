@@ -27,14 +27,16 @@
 
 	<div class="col box-left">
 		
-	<div class="thread thread-sticky ">
+	@foreach ($posts['sticky'] as $post)
+		
+		<div class="thread thread-sticky">
 			<table class="w-100 h-100">
 				<tr>
 					<td class="thread-voting pl-3 pt-3" valign="top">
 						<div class="w-100 text-center">
-							<i class="icon-upvote" data-id="thread-id"></i>
-							<div class="vote-count" data-id="thread-id">9</div>
-							<i class="icon-downvote" data-id="thread-id"></i>
+							<i class="icon-upvote" data-id="{{$post['id']}}"></i>
+							<div class="vote-count" data-id="{{$post['id']}}">9</div>
+							<i class="icon-downvote" data-id="{{$post['id']}}"></i>
 						</div>
 					</td>
 					
@@ -43,39 +45,42 @@
 					</td>
 					
 					<td class="pl-4  pt-2" valign="top">
-						<div class="thread-content  mt-1">
+						<div class="thread-content mt-1">
 							<div class="thread-title">
 								<a href="thread/name-here">
-									Stickied Thread
+									{{$post->subject}}
 								</a>
 							</div>
 							
 							<div class="thread-details">
-								3 weeks ago
-								
+								{{$post->created_at->diffForHumans()}}
 								<div class="thread-author">
-									Username											
+									{{$post->user->name}}
 								</div>
 							</div>
 						</div>
 					</td>
 					
 					<td class="thread-meta pl-3 pr-3">
-						<i class="icon-comments mr-1" data-id="thread-id"></i> 1,863
+						<i class="icon-comments mr-1" data-id="{{$post['id']}}"></i> 1,863
 					</td>
 				</tr>
 			</table>
 		</div>
 		
+		@endforeach
+		
+		
+		@foreach ($posts['normal'] as $post)
 		
 		<div class="thread">
 			<table class="w-100 h-100">
 				<tr>
 					<td class="thread-voting pl-3 pt-3" valign="top">
 						<div class="w-100 text-center">
-							<i class="icon-upvote" data-id="thread-id"></i>
-							<div class="vote-count" data-id="thread-id">9</div>
-							<i class="icon-downvote" data-id="thread-id"></i>
+							<i class="icon-upvote" data-id="{{$post['id']}}"></i>
+							<div class="vote-count" data-id="{{$post['id']}}">9</div>
+							<i class="icon-downvote" data-id="{{$post['id']}}"></i>
 						</div>
 					</td>
 					
@@ -84,30 +89,31 @@
 					</td>
 					
 					<td class="pl-4  pt-2" valign="top">
-						<div class="thread-content  mt-1">
+						<div class="thread-content mt-1">
 							<div class="thread-title">
 								<a href="thread/name-here">
-									Normal Thread With long wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+									{{$post->subject}}
 								</a>
 							</div>
 							
 							<div class="thread-details">
-								2 days ago
-								
+								{{$post->created_at->diffForHumans()}}
 								<div class="thread-author">
-									Username											
+									{{$post->user->name}}
 								</div>
 							</div>
 						</div>
 					</td>
 					
 					<td class="thread-meta pl-3 pr-3">
-						<i class="icon-comments mr-1" data-id="thread-id"></i> 1,863
+						<i class="icon-comments mr-1" data-id="{{$post['id']}}"></i> 1,863
 					</td>
 				</tr>
 			</table>
 		</div>
 		
+		@endforeach
+	
 	</div>
 	
 	<div class="col-3 d-none d-md-block box box-right ml-2 h-100">

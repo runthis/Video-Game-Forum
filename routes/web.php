@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	return view('home');
+	$PostsController = new PostsController;
+	$posts = [
+		'sticky' => $PostsController->get_posts(true),
+		'normal' => $PostsController->get_posts(false)
+	];
+
+	return view('home')->with('posts', $posts);
 });
 
 Route::view('register', 'register')->name('register');

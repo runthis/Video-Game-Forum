@@ -152,6 +152,10 @@ html,body {
 	background: #474747;
 }
 
+.thread-sticky .thread-title a {
+	color: yellow;
+}
+
 .thread-hidden {
 	opacity: 0.35;
 }
