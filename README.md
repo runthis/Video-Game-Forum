@@ -17,6 +17,7 @@
 - [x] Login
 - [ ] Posts
     - [x] View
+    - [x] Pretty urls
     - [x] Create
     - [ ] Edit `owner of post or staff`
     - [ ] Delete `owner of post or staff`
