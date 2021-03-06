@@ -4,8 +4,15 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/runthis/forum)](https://github.com/runthis/forum/commits/master)
 
 
-#### Feature list
 
+#### Current Feature list:
+
+*Legend:*
+- [ ] Feature does **not** exist
+    - [x] Feature Exists
+
+
+*Features:*
 - [x] Register
 - [x] Login
 - [ ] Posts
