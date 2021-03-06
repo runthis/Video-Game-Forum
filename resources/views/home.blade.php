@@ -123,8 +123,6 @@
 				<li><a class="thread-trending" href="/kjjhk">Howwwwwwwwwwwwwwwwwwwwwwwwwww</a></li>
 			</ul>
 			
-			
-			
 		</div>
 		
 		<div class="logo-container">
