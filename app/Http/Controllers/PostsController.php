@@ -36,7 +36,7 @@ class PostsController extends Controller
 			'ip' => $request->ip(),
 			'subject' => $request->subject,
 			'body' => $request->body,
-			'link'->$link
+			'link' => $link
 		]);
 	}
 
@@ -61,7 +61,7 @@ class PostsController extends Controller
 
 	public function generate_link(string $link)
 	{
-		if (Posts::exists('link', $link)) {
+		if (Posts::where('link', $link)->exists()) {
 			$link = $link . '-' . mt_rand(0, 9);
 
 			return $this->generate_link($link);

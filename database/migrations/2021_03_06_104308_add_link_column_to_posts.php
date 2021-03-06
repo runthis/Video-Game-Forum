@@ -14,7 +14,7 @@ class AddLinkColumnToPosts extends Migration
 	public function up()
 	{
 		Schema::table('posts', function (Blueprint $table) {
-			$table->string('link', 50);
+			$table->string('link', 50)->nullable();
 		});
 	}
 

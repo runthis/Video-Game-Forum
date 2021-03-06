@@ -13,7 +13,8 @@ class Posts extends Model
 		'owner',
 		'ip',
 		'subject',
-		'body'
+		'body',
+		'link'
 	];
 
 	public function user()

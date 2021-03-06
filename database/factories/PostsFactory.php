@@ -48,7 +48,7 @@ class PostsFactory extends Factory
 
 	public function generate_link(string $link)
 	{
-		if (Posts::exists('link', $link)) {
+		if (Posts::where('link', $link)->exists()) {
 			$link = $link . '-' . mt_rand(0, 9);
 
 			return $this->generate_link($link);
