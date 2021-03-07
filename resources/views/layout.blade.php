@@ -26,6 +26,14 @@
 	<meta property="og:image:height" content="@yield('og_image_height')" />
 	<meta property="og:site_name" content="Video Game Forum" />
 	
+	<meta name="twitter:card" content="summary">
+	<meta property="twitter:domain" content="@yield('domain')">
+	<meta property="twitter:url" content="@yield('og_url')">
+	<meta name="twitter:title" content="@yield('og_title')">
+	<meta name="twitter:description" content="@yield('og_description')">
+	<meta name="twitter:creator" content="@yield('og_article_author')">
+	<meta name="twitter:image" content="@yield('og_image')">
+	
 	<link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon"/>
 	<link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
 	

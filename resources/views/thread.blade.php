@@ -1,12 +1,12 @@
 @extends('layout')
 
-@section('title', $post->subject)
-@section('description', $post->subject)
+@section('title', substr(html_entity_decode($post->subject, ENT_QUOTES), 0, 57) . '...')
+@section('description', substr(html_entity_decode($post->subject, ENT_QUOTES), 0, 157) . '...')
 @section('og_url', url('/thread/' . $post->link))
 @section('og_article_author', $post->user->name)
 @section('og_article_publisher', $post->user->name)
-@section('og_title', $post->subject)
-@section('og_description', preg_split( '/(\<|\\n)/', $post->body)[0])
+@section('og_title', substr(html_entity_decode($post->subject, ENT_QUOTES), 0, 57) . '...')
+@section('og_description', substr(html_entity_decode($post->body, ENT_QUOTES), 0, 157) . '...')
 @section('og_image', url('/img/avatars/default.png'))
 @section('og_image_alt', url('/img/avatars/default.png'))
 @section('og_image_width', 53)
@@ -15,7 +15,6 @@
 @push('styles')
 	<link href="{{ asset(mix('css/thread.css')) }}" rel="stylesheet">
 @endpush
-
 
 @section('content')
 

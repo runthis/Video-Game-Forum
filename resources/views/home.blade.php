@@ -12,15 +12,9 @@
 @section('og_image_width', 53)
 @section('og_image_height', 50)
 
-
-
-
-
-
 @push('styles')
 	<link href="{{ asset(mix('css/home.css')) }}" rel="stylesheet">
 @endpush
-
 
 @section('content')
 
