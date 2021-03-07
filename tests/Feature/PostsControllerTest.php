@@ -63,4 +63,20 @@ class PostsControllerTest extends TestCase
 
 		$this->assertDatabaseMissing('posts', ['subject' => $data['subject']]);
 	}
+
+	public function test_can_add_emoji_subject()
+	{
+		$data = ['subject' => '💀😸😾🙈🐯', 'body' => $this->faker->paragraph];
+		$response = $this->withSession(['forum.user' => 2])->post(route('posts.create'), $data);
+
+		$this->assertDatabaseHas('posts', ['subject' => $data['subject']]);
+	}
+
+	public function test_can_add_emoji_body()
+	{
+		$data = ['subject' => $this->faker->sentence, 'body' => '💀😸😾🙈🐯'];
+		$response = $this->withSession(['forum.user' => 2])->post(route('posts.create'), $data);
+
+		$this->assertDatabaseHas('posts', ['subject' => $data['subject']]);
+	}
 }
