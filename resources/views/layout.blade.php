@@ -27,7 +27,7 @@
 	<meta property="og:site_name" content="Video Game Forum" />
 	
 	<meta name="twitter:card" content="summary">
-	<meta property="twitter:domain" content="@yield('domain')">
+	<meta property="twitter:domain" content="{{request()->getHost()}}">
 	<meta property="twitter:url" content="@yield('og_url')">
 	<meta name="twitter:title" content="@yield('og_title')">
 	<meta name="twitter:description" content="@yield('og_description')">
