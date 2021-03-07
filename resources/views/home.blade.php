@@ -123,7 +123,7 @@
 		<div class="logo-container">
 			<div class="logo mb-3 text-center">
 				@if(!Session::get('forum.user'))
-					<a class="text-warning" href="login">Login</a> / <a class="text-warning" href="register">Register</a>
+					<a class="text-warning" href="{{url('/login')}}">Login</a> / <a class="text-warning" href="{{url('/register')}}">Register</a>
 				@endif
 				
 				@if(Session::get('forum.user'))

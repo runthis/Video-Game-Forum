@@ -6,7 +6,7 @@
 @section('og_article_author', $post->user->name)
 @section('og_article_publisher', $post->user->name)
 @section('og_title', substr(html_entity_decode($post->subject, ENT_QUOTES), 0, 57) . '...')
-@section('og_description', substr(html_entity_decode($post->body, ENT_QUOTES), 0, 157) . '...')
+@section('og_description', substr(html_entity_decode(explode('<',$post->body)[0], ENT_QUOTES), 0, 157) . '...')
 @section('og_image', url('/img/seoimage.png'))
 @section('og_image_alt', url('/img/seoimage.png'))
 @section('og_image_width', 1200)
@@ -71,6 +71,26 @@
 			
 			<div class="thread-article mt-3">
 				<div id="thread-main">{!! $post->body !!}</div>
+				
+				@if(Session::get('forum.user'))
+				<div class="mt-3">
+					<form method="post">
+						@csrf
+						
+						<textarea name="comment" class="comment-input" rows="5" placeholder="Type a comment here">{{ old('comment') }}</textarea>
+						@error('comment')
+							<div class="text-warning m-2">{{ $message }}</div>
+						@enderror
+						
+						<input type="hidden" name="post" value="{{ $post->id }}">
+						
+						<div class="mt-1 mb-5">
+							<button class="btn-dark">add comment</button>
+						</div>
+					</form>
+				</div>
+				@endif
+				
 			</div>
 			
 			<div class="thread-article-actions mt-1">
@@ -81,8 +101,6 @@
 					</tr>
 				</table>
 			</div>
-			
-			
 			
 			
 			@foreach ($post->reply as $reply)
@@ -132,25 +150,30 @@
 			</div>
 			
 			@endforeach
-			
-			
-			
-			
 		</div>
 	</div>
 	
 	<div class="col-3 d-none d-md-block box box-right ml-2 h-100">
 		
 		<div class="forum-actions my-details">
-			<a class="text-white" href="{{url()->previous()}}">
+			<a class="text-white" href="{{url('/?page=' . Session::get('forum.page'))}}">
 				<div class="go-back p-2 text-white small">
-					<i class="icon-left"></i> Go back to previous page
+					<i class="icon-left"></i> Go back to page {{Session::get('forum.page')}}
 				</div>
 			</a>
 		</div>
 		
 		<div class="logo-container">
 			<div class="logo mb-3 text-center">
+				
+				@if(!Session::get('forum.user'))
+					<a class="text-warning" href="{{url('/login')}}">Login</a> / <a class="text-warning" href="{{url('/register')}}">Register</a>
+				@endif
+				
+				@if(Session::get('forum.user'))
+					<small>{{Session::get('forum.name')}}</small>
+				@endif
+				
 				<div class="text-muted">v0.01</div>
 			</div>
 		</div>

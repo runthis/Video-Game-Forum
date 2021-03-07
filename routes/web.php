@@ -21,6 +21,8 @@ Route::get('/', function (Request $request) {
 	$posts = $PostsController->get_posts($page);
 	$pages = ceil(($PostsController->get_posts_count() / 10));
 
+	Session::put('forum.page', $page);
+
 	return view('home')->withPosts($posts)->withPage($page)->withPages($pages);
 })->name('home');
 
@@ -36,6 +38,8 @@ Route::get('thread/{page}', function ($link) {
 
 	return view('thread')->with('post', $post);
 });
+
+Route::post('thread/{page}', 'App\Http\Controllers\ReplyController@create');
 
 Route::group(['middleware' => 'user.authenticated'], function () {
 	Route::view('post', 'post')->name('post');

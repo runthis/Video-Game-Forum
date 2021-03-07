@@ -38,7 +38,7 @@
 - [ ] Replies
     - [x] View
     - [x] Native emoji support
-    - [ ] Create
+    - [x] Create
     - [ ] Edit `owner of message or staff`
     - [ ] Delete `owner of message or staff`
     - [ ] Sticky `owner of post or staff`

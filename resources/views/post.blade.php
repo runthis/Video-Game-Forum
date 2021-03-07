@@ -52,9 +52,9 @@
 	<div class="col-3 d-none d-md-block box box-right ml-2 h-100">
 		
 		<div class="forum-actions my-details">
-			<a class="text-white" href="{{url('/')}}">
+			<a class="text-white" href="{{url('/?page=' . Session::get('forum.page'))}}">
 				<div class="go-back p-2 text-white small">
-					<i class="icon-left"></i> Go back to main page
+					<i class="icon-left"></i> Go back to page {{Session::get('forum.page')}}
 				</div>
 			</a>
 		</div>

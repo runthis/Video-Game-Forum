@@ -9,7 +9,12 @@ class Reply extends Model
 {
 	use HasFactory;
 
-	protected $table = 'replies';
+	protected $fillable = [
+		'owner',
+		'ip',
+		'post',
+		'body'
+	];
 
 	public function post()
 	{
