@@ -7,8 +7,8 @@
 @section('og_article_publisher', 'Video Game')
 @section('og_title', 'Video Game - Forum')
 @section('og_description', 'Video Game - Forum')
-@section('og_image', url('/img/avatars/default.png'))
-@section('og_image_alt', url('/img/avatars/default.png'))
+@section('og_image', url('/img/seoimage.png'))
+@section('og_image_alt', url('/img/seoimage.png'))
 @section('og_image_width', 53)
 @section('og_image_height', 50)
 

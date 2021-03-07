@@ -7,8 +7,8 @@
 @section('og_article_publisher', $post->user->name)
 @section('og_title', substr(html_entity_decode($post->subject, ENT_QUOTES), 0, 57) . '...')
 @section('og_description', substr(html_entity_decode($post->body, ENT_QUOTES), 0, 157) . '...')
-@section('og_image', url('/img/avatars/default.png'))
-@section('og_image_alt', url('/img/avatars/default.png'))
+@section('og_image', url('/img/seoimage.png'))
+@section('og_image_alt', url('/img/seoimage.png'))
 @section('og_image_width', 53)
 @section('og_image_height', 50)
 
@@ -142,9 +142,9 @@
 	<div class="col-3 d-none d-md-block box box-right ml-2 h-100">
 		
 		<div class="forum-actions my-details">
-			<a class="text-white" href="{{url('/')}}">
+			<a class="text-white" href="{{url()->previous()}}">
 				<div class="go-back p-2 text-white small">
-					<i class="icon-left"></i> Go back to main page
+					<i class="icon-left"></i> Go back to previous page
 				</div>
 			</a>
 		</div>
