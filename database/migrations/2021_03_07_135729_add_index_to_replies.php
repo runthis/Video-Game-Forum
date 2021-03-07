@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLinkColumnToPosts extends Migration
+class AddIndexToReplies extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,8 +13,9 @@ class AddLinkColumnToPosts extends Migration
 	 */
 	public function up()
 	{
-		Schema::table('posts', function (Blueprint $table) {
-			$table->string('link', 255)->nullable();
+		Schema::table('replies', function (Blueprint $table) {
+			$table->index('owner');
+			$table->index('post');
 		});
 	}
 
@@ -25,8 +26,9 @@ class AddLinkColumnToPosts extends Migration
 	 */
 	public function down()
 	{
-		Schema::table('posts', function (Blueprint $table) {
-			$table->dropColumn('link');
+		Schema::table('replies', function (Blueprint $table) {
+			$table->dropIndex('owner');
+			$table->dropIndex('post');
 		});
 	}
 }

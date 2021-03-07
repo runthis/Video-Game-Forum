@@ -27,9 +27,9 @@
 
 	<div class="col box-left">
 		
-	@foreach ($posts['sticky'] as $post)
+		@foreach ($posts as $post)
 		
-		<div class="thread thread-sticky">
+		<div class="thread {{$post['sticky'] ? 'thread-sticky' : ''}}">
 			<table class="w-100 h-100">
 				<tr>
 					<td class="thread-voting pl-3 pt-3" valign="top">
@@ -41,7 +41,7 @@
 					</td>
 					
 					<td class="thread-avatar pl-3  pt-2 d-none d-md-table-cell" valign="top">
-						<img class="w-100" style="" src="{{ asset('img/avatars/default-avatar.png') }}">
+						<img class="w-100" src="{{ asset('img/avatars/default.png') }}">
 					</td>
 					
 					<td class="pl-4  pt-2" valign="top">
@@ -71,48 +71,6 @@
 		@endforeach
 		
 		
-		@foreach ($posts['normal'] as $post)
-		
-		<div class="thread">
-			<table class="w-100 h-100">
-				<tr>
-					<td class="thread-voting pl-3 pt-3" valign="top">
-						<div class="w-100 text-center">
-							<i class="icon-upvote" data-id="{{$post['id']}}"></i>
-							<div class="vote-count" data-id="{{$post['id']}}">9</div>
-							<i class="icon-downvote" data-id="{{$post['id']}}"></i>
-						</div>
-					</td>
-					
-					<td class="thread-avatar pl-3  pt-2 d-none d-md-table-cell" valign="top">
-						<img class="w-100" style="" src="{{ asset('img/avatars/default-avatar.png') }}">
-					</td>
-					
-					<td class="pl-4  pt-2" valign="top">
-						<div class="thread-content mt-1">
-							<div class="thread-title">
-								<a href="thread/{{$post->link}}/">
-									{{$post->subject}}
-								</a>
-							</div>
-							
-							<div class="thread-details">
-								{{$post->created_at->diffForHumans()}}
-								<div class="thread-author">
-									{{$post->user->name}}
-								</div>
-							</div>
-						</div>
-					</td>
-					
-					<td class="thread-meta pl-3 pr-3">
-						<i class="icon-comments mr-1" data-id="{{$post['id']}}"></i> {{$post->reply->count()}}
-					</td>
-				</tr>
-			</table>
-		</div>
-		
-		@endforeach
 	
 	</div>
 	

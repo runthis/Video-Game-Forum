@@ -40,7 +40,7 @@
 
 
 					<td valign="top" class="thread-avatar pl-3" valign="top">
-						<img class="w-100 mt-2 mb-2" src="https://www.slavehack2.com/forum/images/avatars/blank2">
+						<img class="w-100 mt-2 mb-2" src="{{ asset('img/avatars/default.png') }}">
 					</td>
 
 
@@ -92,7 +92,7 @@
 						<td valign="top">
 							<div class="ml-2">
 
-								<img class="mb-2" style="max-height: 20px;width: 15px;" src="{{ asset('img/avatars/default-avatar.png') }}">
+								<img class="mb-2" style="max-height: 20px;width: 15px;" src="{{ asset('img/avatars/default.png') }}">
 
 								<span class="thread-author">{{$reply->user->name}}</span>
 								

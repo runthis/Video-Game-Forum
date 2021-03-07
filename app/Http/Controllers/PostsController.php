@@ -18,9 +18,13 @@ class PostsController extends Controller
 		return redirect('/thread/' . $this->new_link);
 	}
 
-	public function get_posts(bool $sticky = false)
+	public function get_posts()
 	{
-		return Posts::select('id', 'owner', 'subject', 'link', 'created_at')->where('sticky', $sticky)->latest()->get();
+		return Posts::select('id', 'owner', 'subject', 'link', 'sticky', 'created_at')->
+						limit(10)->
+						orderBy('sticky', 'desc')->
+						latest()->
+						get();
 	}
 
 	public function get_single_post(string $link)
@@ -68,12 +72,14 @@ class PostsController extends Controller
 
 	public function generate_link(string $link)
 	{
-		if (Posts::where('link', $link)->exists()) {
-			$link = $link . '-' . mt_rand(0, 9);
+		$posts = Posts::where('link', $link);
 
-			return $this->generate_link($link);
+		if (!$posts->exists()) {
+			return $link;
 		}
 
-		return $link;
+		$link = $link . rand(0, 9);
+
+		return $this->generate_link($link);
 	}
 }

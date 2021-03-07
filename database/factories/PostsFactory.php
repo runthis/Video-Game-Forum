@@ -52,20 +52,27 @@ class PostsFactory extends Factory
 	{
 		$url = strtolower(trim($subject));
 		$url = preg_replace('/[^\p{L}\p{N}]+/', '-', $url);
+		$url = preg_replace("/\x{FFFD}/u", '', $url);
 		$url = substr($url, 0, 44);
+
+		if (strlen($url) < 5) {
+			$url = 'posts';
+		}
 
 		return $url;
 	}
 
 	public function generate_link(string $link)
 	{
-		if (Posts::where('link', $link)->exists()) {
-			$link = $link . '-' . mt_rand(0, 9);
+		$posts = Posts::where('link', $link);
 
-			return $this->generate_link($link);
+		if (!$posts->exists()) {
+			return $link;
 		}
 
-		return $link;
+		$link = $link . rand(0, 9);
+
+		return $this->generate_link($link);
 	}
 
 	private function should_sticky()

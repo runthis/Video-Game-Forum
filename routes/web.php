@@ -16,13 +16,10 @@ use App\Http\Controllers\PostsController;
 
 Route::get('/', function () {
 	$PostsController = new PostsController;
-	$posts = [
-		'sticky' => $PostsController->get_posts(true),
-		'normal' => $PostsController->get_posts(false)
-	];
+	$posts = $PostsController->get_posts();
 
 	return view('home')->with('posts', $posts);
-});
+})->name('home');
 
 Route::view('register', 'register')->name('register');
 Route::view('login', 'login')->name('login');
@@ -45,4 +42,8 @@ Route::group(['middleware' => 'user.authenticated'], function () {
 
 Route::group(['middleware' => ['user.authenticated', 'throttle:posts']], function () {
 	Route::post('createPost', 'App\Http\Controllers\PostsController@create')->name('posts.create');
+});
+
+Route::fallback(function () {
+	return redirect()->route('home');
 });
