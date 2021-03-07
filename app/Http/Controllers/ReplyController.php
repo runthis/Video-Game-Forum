@@ -7,8 +7,20 @@ use App\Models\Reply;
 
 class ReplyController extends Controller
 {
-	public function create(Request $request)
+	/**
+	 * Create a reply for a post
+	 *
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function create(Request $request): \Illuminate\Http\RedirectResponse
 	{
+		$request->validate([
+			'post' => 'required',
+			'comment' => 'required|min:1|max:2048'
+		]);
+
 		Reply::create([
 			'owner' => $request->session()->get('forum.user'),
 			'ip' => $request->ip(),

@@ -9,31 +9,69 @@ use Session;
 
 class PostsController extends Controller
 {
+	/**
+	 * The link to send the request to after a post has been made
+	 *
+	 * @var string
+	 */
 	private $new_link = '/';
 
-	public function create(Request $request)
+	/**
+	 * Validate and create a new post
+	 *
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function create(Request $request): \Illuminate\Http\RedirectResponse
 	{
 		$this->validate_create($request)->add_create($request);
 
 		return redirect('/thread/' . $this->new_link);
 	}
 
-	public function get_posts(int $page = 1)
+	/**
+	 * Get posts based on page
+	 *
+	 * @param integer $page
+	 *
+	 * @return object
+	 */
+	public function get_posts(int $page = 1): object
 	{
 		return Posts::select('id', 'owner', 'subject', 'link', 'sticky', 'created_at')->skip((($page - 1) * 10))->take(10)->orderBy('sticky', 'desc')->latest()->get();
 	}
 
-	public function get_single_post(string $link)
+	/**
+	 * Get a single post
+	 *
+	 * @param string $link
+	 *
+	 * @return object
+	 */
+	public function get_single_post(string $link): object
 	{
 		return Posts::select('id', 'owner', 'subject', 'body', 'link', 'sticky', 'created_at')->where('link', $link)->first();
 	}
 
-	public function get_posts_count()
+	/**
+	 * Get a count of all posts
+	 *
+	 * @return integer
+	 */
+	public function get_posts_count(): int
 	{
 		return Posts::count();
 	}
 
-	private function add_create(Request $request)
+	/**
+	 * Add the new post to the database
+	 *
+	 * @param Request $request
+	 *
+	 * @return void
+	 */
+	private function add_create(Request $request): void
 	{
 		$friendly_url = $this->friendly_url($request->subject);
 		$this->new_link = $this->generate_link($friendly_url);
@@ -47,7 +85,14 @@ class PostsController extends Controller
 		]);
 	}
 
-	private function validate_create(Request $request)
+	/**
+	 * Validate a post request
+	 *
+	 * @param Request $request
+	 *
+	 * @return PostsController
+	 */
+	private function validate_create(Request $request): PostsController
 	{
 		$request->validate([
 			'subject' => 'required|min:5|max:255',
@@ -57,7 +102,14 @@ class PostsController extends Controller
 		return $this;
 	}
 
-	public function friendly_url(string $subject)
+	/**
+	 * Generate a friendly url by post subject
+	 *
+	 * @param string $subject
+	 *
+	 * @return string
+	 */
+	public function friendly_url(string $subject): string
 	{
 		$url = strtolower(trim($subject));
 		$url = preg_replace('/[^\p{L}\p{N}]+/', '-', $url);
@@ -71,7 +123,14 @@ class PostsController extends Controller
 		return $url;
 	}
 
-	public function generate_link(string $link)
+	/**
+	 * Generate a link for a post
+	 *
+	 * @param string $link
+	 *
+	 * @return string
+	 */
+	public function generate_link(string $link): string
 	{
 		$posts = Posts::where('link', $link);
 

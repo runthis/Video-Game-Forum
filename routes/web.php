@@ -39,14 +39,13 @@ Route::get('thread/{page}', function ($link) {
 	return view('thread')->with('post', $post);
 });
 
-Route::post('thread/{page}', 'App\Http\Controllers\ReplyController@create');
-
 Route::group(['middleware' => 'user.authenticated'], function () {
 	Route::view('post', 'post')->name('post');
 });
 
 Route::group(['middleware' => ['user.authenticated', 'throttle:posts']], function () {
 	Route::post('createPost', 'App\Http\Controllers\PostsController@create')->name('posts.create');
+	Route::post('thread/{page}', 'App\Http\Controllers\ReplyController@create')->name('replies.create');
 });
 
 Route::fallback(function () {

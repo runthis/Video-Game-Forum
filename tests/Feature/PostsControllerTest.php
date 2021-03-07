@@ -24,6 +24,14 @@ class PostsControllerTest extends TestCase
 		$this->assertDatabaseHas('posts', ['subject' => $data['subject']]);
 	}
 
+	public function test_can_not_add_post_logged_out()
+	{
+		$data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$response = $this->post(route('posts.create'), $data);
+
+		$this->assertDatabaseMissing('posts', ['subject' => $data['subject']]);
+	}
+
 	public function test_can_not_add_short_post_subject()
 	{
 		$data = ['subject' => 'abc', 'body' => $this->faker->paragraph];
