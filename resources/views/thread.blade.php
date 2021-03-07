@@ -9,8 +9,8 @@
 @section('og_description', substr(html_entity_decode($post->body, ENT_QUOTES), 0, 157) . '...')
 @section('og_image', url('/img/seoimage.png'))
 @section('og_image_alt', url('/img/seoimage.png'))
-@section('og_image_width', 53)
-@section('og_image_height', 50)
+@section('og_image_width', 1200)
+@section('og_image_height', 630)
 
 @push('styles')
 	<link href="{{ asset(mix('css/thread.css')) }}" rel="stylesheet">
