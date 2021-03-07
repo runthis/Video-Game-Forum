@@ -23,11 +23,14 @@
 *Features:*
 - [x] Register
 - [x] Login
+- [x] Pagination
+- [x] Seo stuffs
 - [ ] Posts
     - [x] View
     - [x] Pretty urls
     - [x] Create
     - [x] Native emoji support
+    - [x] Rate limit
     - [ ] Edit `owner of post or staff`
     - [ ] Delete `owner of post or staff`
     - [ ] Sticky `staff`
