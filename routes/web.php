@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,20 +15,20 @@ use App\Http\Controllers\PostsController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
 	$PostsController = new PostsController;
-	$posts = $PostsController->get_posts();
+	$page = $request->input('page') ?: 1;
+	$posts = $PostsController->get_posts($page);
+	$pages = ceil(($PostsController->get_posts_count() / 10));
 
-	return view('home')->with('posts', $posts);
+	return view('home')->withPosts($posts)->withPage($page)->withPages($pages);
 })->name('home');
 
 Route::view('register', 'register')->name('register');
-Route::view('login', 'login')->name('login');
-
 Route::post('registerUser', 'App\Http\Controllers\AuthController@register_user');
-Route::post('loginUser', 'App\Http\Controllers\AuthController@login');
 
-Route::redirect('thread', url(''));
+Route::view('login', 'login')->name('login');
+Route::post('loginUser', 'App\Http\Controllers\AuthController@login');
 
 Route::get('thread/{page}', function ($link) {
 	$PostsController = new PostsController;

@@ -18,18 +18,19 @@ class PostsController extends Controller
 		return redirect('/thread/' . $this->new_link);
 	}
 
-	public function get_posts()
+	public function get_posts(int $page = 1)
 	{
-		return Posts::select('id', 'owner', 'subject', 'link', 'sticky', 'created_at')->
-						limit(10)->
-						orderBy('sticky', 'desc')->
-						latest()->
-						get();
+		return Posts::select('id', 'owner', 'subject', 'link', 'sticky', 'created_at')->skip((($page - 1) * 10))->take(10)->orderBy('sticky', 'desc')->latest()->get();
 	}
 
 	public function get_single_post(string $link)
 	{
 		return Posts::select('id', 'owner', 'subject', 'body', 'link', 'sticky', 'created_at')->where('link', $link)->first();
+	}
+
+	public function get_posts_count()
+	{
+		return Posts::count();
 	}
 
 	private function add_create(Request $request)

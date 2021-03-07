@@ -1,6 +1,16 @@
 @extends('layout')
 
 @section('title', $post->subject)
+@section('description', $post->subject)
+@section('og_url', url('/thread/' . $post->link))
+@section('og_article_author', $post->user->name)
+@section('og_article_publisher', $post->user->name)
+@section('og_title', $post->subject)
+@section('og_description', preg_split( '/(\<|\\n)/', $post->body)[0])
+@section('og_image', url('/img/avatars/default.png'))
+@section('og_image_alt', url('/img/avatars/default.png'))
+@section('og_image_width', 53)
+@section('og_image_height', 50)
 
 @push('styles')
 	<link href="{{ asset(mix('css/thread.css')) }}" rel="stylesheet">

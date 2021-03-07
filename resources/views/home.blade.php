@@ -1,6 +1,21 @@
 @extends('layout')
 
 @section('title', 'Home')
+@section('description', 'Video Game - Forum')
+@section('og_url', url('/'))
+@section('og_article_author', 'Video Game')
+@section('og_article_publisher', 'Video Game')
+@section('og_title', 'Video Game - Forum')
+@section('og_description', 'Video Game - Forum')
+@section('og_image', url('/img/avatars/default.png'))
+@section('og_image_alt', url('/img/avatars/default.png'))
+@section('og_image_width', 53)
+@section('og_image_height', 50)
+
+
+
+
+
 
 @push('styles')
 	<link href="{{ asset(mix('css/home.css')) }}" rel="stylesheet">
@@ -70,14 +85,37 @@
 		
 		@endforeach
 		
+		<!-- Pagination -->
+		<div class="mt-3 text-center">
+			@if ($page < $pages)
+				<a href="?page={{($page + 1)}}" class="btn btn-sm btn-dark">Next</a>
+			@endif
+			
+			@for ($i = ($page + 3); $i >= ($page - 3); $i--)
+				@if ($i < 1)
+					@continue
+				@endif
+				
+				@if ($i > $pages)
+					@continue
+				@endif
+				
+				@if ($i == $page)
+					<a class="btn btn-sm btn-dark btn-paginate-active">{{$i}}</a>
+				@else
+					<a href="?page={{$i}}" class="btn btn-sm btn-dark btn-paginate">{{$i}}</a>
+				@endif
+			@endfor
+			
+			@if ($page > 1)
+				<a href="?page={{($page - 1)}}" class="btn btn-sm btn-dark">Previous</a>
+			@endif
+		</div><!-- /Pagination -->
 		
-	
 	</div>
 	
 	<div class="col-3 d-none d-md-block box box-right ml-2 h-100">
-		
 		<div class="forum-actions my-details mt-3">
-			
 			<h4 class="text-center">Trending Discussions</h4>
 			
 			<ul class="ml-3 pl-3 pr-3">
@@ -86,7 +124,6 @@
 				<li><a class="thread-trending" href="/kjjhk">Has anyone tried the new update?</a></li>
 				<li><a class="thread-trending" href="/kjjhk">Howwwwwwwwwwwwwwwwwwwwwwwwwww</a></li>
 			</ul>
-			
 		</div>
 		
 		<div class="logo-container">
