@@ -32,7 +32,7 @@
     - [x] Native emoji support
     - [x] Rate limit
     - [x] Edit `owner of post or staff`
-    - [ ] Delete `owner of post or staff`
+    - [x] Delete `owner of post or staff`
     - [ ] Sticky `staff`
     - [ ] Archive `staff`
 - [ ] Replies
