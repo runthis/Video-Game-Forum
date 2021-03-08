@@ -70,25 +70,25 @@
 			
 			
 			<div class="thread-article mt-3">
+				
+				@error('body')
+					<div class="text-warning mb-4">Edit Error: {{ $message }} Please try to edit the post again.</div>
+				@enderror
+				
 				<div id="thread-main">{!! $post->body !!}</div>
 				
-				@if(Session::get('forum.user'))
-				<div class="mt-3">
-					<form method="post">
-						@csrf
-						
-						<textarea name="comment" class="comment-input" rows="5" placeholder="Type a comment here">{{ old('comment') }}</textarea>
-						@error('comment')
-							<div class="text-warning m-2">{{ $message }}</div>
-						@enderror
-						
-						<input type="hidden" name="post" value="{{ $post->id }}">
-						
-						<div class="mt-1 mb-5">
-							<button class="btn-dark">add comment</button>
-						</div>
-					</form>
-				</div>
+				@if(Session::get('forum.user') == $post->owner || Session::get('forum.role') > 1)
+				<form id="thread-main-edit" action="{{url('/editPost')}}" method="post">
+					@csrf
+					
+					<textarea name="body" class="comment-input" rows="15" placeholder="Type a comment here">{!! str_replace('<br />','',$post->body) !!}</textarea>
+					<input type="hidden" name="post" value="{{ $post->id }}">
+					<input type="hidden" name="link" value="{{ $post->link }}">
+					
+					<div class="mt-1">
+						<button class="btn-dark">edit post</button>
+					</div>
+				</form>
 				@endif
 				
 			</div>
@@ -98,10 +98,32 @@
 					<tr>
 						<td>{{$post->reply->count()}} comments</td>
 						<td><span class="thread-action" data-action="share">share</span></td>
+						
+						@if(Session::get('forum.user') == $post->owner || Session::get('forum.role') > 1)
+						<td><span class="thread-action" data-action="edit">edit</span></td>
+						@endif
 					</tr>
 				</table>
 			</div>
 			
+			@if(Session::get('forum.user'))
+			<div class="thread-article mt-3">
+				<form method="post">
+					@csrf
+					
+					<textarea name="comment" class="comment-input" rows="5" placeholder="Type a comment here">{{ old('comment') }}</textarea>
+					@error('comment')
+						<div class="text-warning m-2">{{ $message }}</div>
+					@enderror
+					
+					<input type="hidden" name="post" value="{{ $post->id }}">
+					
+					<div class="mt-1">
+						<button class="btn-dark">add comment</button>
+					</div>
+				</form>
+			</div>
+			@endif
 			
 			@foreach ($post->reply as $reply)
 			<div class="thread-article mt-3">
@@ -183,5 +205,5 @@
 @endsection
 
 @push('scripts')
-	<script src="{{ asset(mix('js/home.js')) }}"></script>
+	<script src="{{ asset(mix('js/thread.js')) }}"></script>
 @endpush

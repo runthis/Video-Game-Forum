@@ -65,6 +65,28 @@ class PostsController extends Controller
 	}
 
 	/**
+	 * Set the body of a post to a new value
+	 *
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function edit(Request $request): \Illuminate\Http\RedirectResponse
+	{
+		$request->validate([
+			'body' => 'required|min:5|max:2048'
+		]);
+
+		$post = Posts::select('owner')->where('id', $request->post)->first();
+
+		if ($post->owner == Session::get('forum.user') || Session::get('forum.role') > 1) {
+			Posts::where('id', $request->post)->update(['body' => $request->body]);
+		}
+
+		return redirect('/thread/' . $request->link);
+	}
+
+	/**
 	 * Add the new post to the database
 	 *
 	 * @param Request $request

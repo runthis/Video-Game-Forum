@@ -38,3 +38,13 @@ mix.scripts([
 ], 'public/js/home.js').options({
 	processCssUrls: false
 }).version();
+
+
+mix.scripts([
+	'resources/js/scrollbars.js',
+	'resources/js/thread.js'
+], 'public/js/thread.js').options({
+	processCssUrls: false
+}).version();
+
+

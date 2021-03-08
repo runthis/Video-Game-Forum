@@ -46,6 +46,7 @@ Route::group(['middleware' => 'user.authenticated'], function () {
 Route::group(['middleware' => ['user.authenticated', 'throttle:posts']], function () {
 	Route::post('createPost', 'App\Http\Controllers\PostsController@create')->name('posts.create');
 	Route::post('thread/{page}', 'App\Http\Controllers\ReplyController@create')->name('replies.create');
+	Route::post('editPost', 'App\Http\Controllers\PostsController@edit')->name('posts.edit');
 });
 
 Route::fallback(function () {
