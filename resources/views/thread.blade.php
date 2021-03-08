@@ -96,7 +96,7 @@
 			<div class="thread-article-actions mt-1">
 				<table>
 					<tr>
-						<td>{{$post->reply->count()}} comments</td>
+						<td>{{ $post->reply->count() }} comment {{ ($post->reply->count() == 1 ? '' : 's') }}</td>
 						<td><span class="thread-action" data-action="share">share</span></td>
 						
 						@if(Session::get('forum.user') == $post->owner || Session::get('forum.role') > 1)
