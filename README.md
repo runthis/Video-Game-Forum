@@ -31,7 +31,7 @@
     - [x] Create
     - [x] Native emoji support
     - [x] Rate limit
-    - [ ] Edit `owner of post or staff`
+    - [x] Edit `owner of post or staff`
     - [ ] Delete `owner of post or staff`
     - [ ] Sticky `staff`
     - [ ] Archive `staff`
@@ -39,7 +39,7 @@
     - [x] View
     - [x] Native emoji support
     - [x] Create
-    - [x] Edit `owner of message or staff`
+    - [ ] Edit `owner of message or staff`
     - [ ] Delete `owner of message or staff`
     - [ ] Sticky `owner of post or staff`
 - [ ] Avatars
