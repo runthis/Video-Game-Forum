@@ -78,7 +78,7 @@
 				<div id="thread-main">{!! $post->body !!}</div>
 				
 				@if(Session::get('forum.user') == $post->owner || Session::get('forum.role') > 1)
-				<form id="thread-main-edit" action="{{url('/editPost')}}" method="post">
+				<form id="thread-main-edit" action="{{ url('/editPost') }}" method="post">
 					@csrf
 					
 					<textarea name="body" class="comment-input" rows="15" placeholder="Type a comment here">{!! str_replace('<br />','',$post->body) !!}</textarea>
@@ -101,6 +101,7 @@
 						
 						@if(Session::get('forum.user') == $post->owner || Session::get('forum.role') > 1)
 						<td><span class="thread-action" data-action="edit">edit</span></td>
+						<td><span class="thread-action" data-action="delete" data-post="{{ $post->id }}" data-url="{{ url('/deletePost') }}" data-token="{{ csrf_token() }}">delete</span></td>
 						@endif
 					</tr>
 				</table>

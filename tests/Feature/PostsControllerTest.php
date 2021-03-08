@@ -166,4 +166,30 @@ class PostsControllerTest extends TestCase
 
 		$this->assertDatabaseMissing('posts', ['body' => $edit_data['body']]);
 	}
+
+	public function test_can_delete_post()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+		$delete_data = ['post' => $post->id];
+
+		$this->withSession(['forum.user' => 2])->post(route('posts.delete'), $delete_data);
+
+		$this->assertDatabaseMissing('posts', ['id' => $post->id]);
+	}
+
+	public function test_can_not_delete_post_with_wrong_user()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+		$delete_data = ['post' => $post->id];
+
+		$this->withSession(['forum.user' => 1])->post(route('posts.delete'), $delete_data);
+
+		$this->assertDatabaseHas('posts', ['id' => $post->id]);
+	}
 }

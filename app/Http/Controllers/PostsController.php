@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Posts;
@@ -9,6 +10,8 @@ use Session;
 
 class PostsController extends Controller
 {
+	use SoftDeletes;
+
 	/**
 	 * The link to send the request to after a post has been made
 	 *
@@ -49,9 +52,11 @@ class PostsController extends Controller
 	 *
 	 * @return object
 	 */
-	public function get_single_post(string $link): object
+	public function get_single_post(string $link)
 	{
-		return Posts::select('id', 'owner', 'subject', 'body', 'link', 'sticky', 'created_at')->where('link', $link)->first();
+		if ($this->link_exists($link)) {
+			return Posts::select('id', 'owner', 'subject', 'body', 'link', 'sticky', 'created_at')->where('link', $link)->first();
+		}
 	}
 
 	/**
@@ -84,6 +89,26 @@ class PostsController extends Controller
 		}
 
 		return redirect('/thread/' . $request->link);
+	}
+
+	public function delete(Request $request): void
+	{
+		$post = Posts::select('owner')->where('id', $request->post)->first();
+
+		if ($post->owner == Session::get('forum.user') || Session::get('forum.role') > 1) {
+			Posts::find($request->post)->delete();
+		}
+	}
+
+	private function link_exists(string $link)
+	{
+		$post = Posts::where('link', $link);
+
+		if ($post) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

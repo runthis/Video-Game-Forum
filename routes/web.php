@@ -35,6 +35,9 @@ Route::post('loginUser', 'App\Http\Controllers\AuthController@login');
 Route::get('thread/{page}', function ($link) {
 	$PostsController = new PostsController;
 	$post = $PostsController->get_single_post($link);
+	if (!$post) {
+		return redirect()->route('home');
+	}
 
 	return view('thread')->with('post', $post);
 });
@@ -47,6 +50,7 @@ Route::group(['middleware' => ['user.authenticated', 'throttle:posts']], functio
 	Route::post('createPost', 'App\Http\Controllers\PostsController@create')->name('posts.create');
 	Route::post('thread/{page}', 'App\Http\Controllers\ReplyController@create')->name('replies.create');
 	Route::post('editPost', 'App\Http\Controllers\PostsController@edit')->name('posts.edit');
+	Route::post('deletePost', 'App\Http\Controllers\PostsController@delete')->name('posts.delete');
 });
 
 Route::fallback(function () {

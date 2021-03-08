@@ -6,5 +6,11 @@ $('.thread-action').on('click', function() {
 			$('#thread-main').toggle();
 			$('#thread-main-edit').toggle();
 		break;
+		
+		case 'delete':
+			$.post($(this).data('url'), {post: $(this).data('post'), _token: $(this).data('token')}, function() {
+				$('.go-back').click();
+			});
+		break;
 	}
 });
