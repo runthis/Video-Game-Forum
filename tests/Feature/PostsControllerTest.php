@@ -177,7 +177,7 @@ class PostsControllerTest extends TestCase
 
 		$this->withSession(['forum.user' => 2])->post(route('posts.delete'), $delete_data);
 
-		$this->assertDatabaseMissing('posts', ['id' => $post->id]);
+		$this->assertSoftDeleted($post);
 	}
 
 	public function test_can_not_delete_post_with_wrong_user()
