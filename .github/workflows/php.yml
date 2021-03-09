@@ -6,11 +6,15 @@ on:
   pull_request:
     branches: [ master ]
 
+
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  run:    
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+        php-versions: ['7.3', '7.4']
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
     steps:
     - uses: actions/checkout@v2
 
@@ -31,4 +35,3 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
     - name: Laravel PHPUnit
       uses: nathanheffley/laravel-phpunit-action@v0.1.0
-  
