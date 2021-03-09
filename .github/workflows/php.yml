@@ -1,4 +1,4 @@
-name: Testing video game forum
+name: PHP >= 7.3
 on: [push, pull_request]
 jobs:
   laravel:
