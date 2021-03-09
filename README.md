@@ -1,6 +1,7 @@
 # Video Game Forum
 
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/runthis/forum/unit-feature-tests/master)](https://github.com/runthis/forum/actions)
+[![Travis CI](https://badgen.net/travis/runthis/Video-Game-Forum)](https://travis-ci.com/github/runthis/Video-Game-Forum/builds/)
 [![GitHub last commit](https://img.shields.io/github/last-commit/runthis/forum)](https://github.com/runthis/forum/commits/master)
 [![Languages](https://img.shields.io/github/languages/count/runthis/Video-Game-Forum)](https://github.com/runthis/Video-Game-Forum/search?l=PHP)
 [![Main Languages](https://img.shields.io/github/languages/top/runthis/Video-Game-Forum)](https://github.com/runthis/Video-Game-Forum/search?l=PHP)
