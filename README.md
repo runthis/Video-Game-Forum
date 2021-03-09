@@ -4,8 +4,8 @@
 [![Main Languages](https://img.shields.io/github/languages/top/runthis/Video-Game-Forum)](https://github.com/runthis/Video-Game-Forum/search?l=PHP)
 [![Languages](https://img.shields.io/github/languages/count/runthis/Video-Game-Forum)](https://github.com/runthis/Video-Game-Forum/search?l=PHP)
 
-[![PHP 7.3+](https://github.com/runthis/Video-Game-Forum/actions/workflows/php.yml/badge.svg)](https://github.com/runthis/forum/actions)
-[![PHP Latest](https://github.com/runthis/Video-Game-Forum/actions/workflows/phplatest.yml/badge.svg)](https://github.com/runthis/forum/actions)
+[![PHP 7.3+](https://github.com/runthis/Video-Game-Forum/actions/workflows/php.yml/badge.svg)](https://github.com/runthis/Video-Game-Forum/actions/workflows/php.yml)
+[![PHP Latest](https://github.com/runthis/Video-Game-Forum/actions/workflows/phplatest.yml/badge.svg)](https://github.com/runthis/Video-Game-Forum/actions/workflows/phplatest.yml)
 [![GitHub last commit](https://img.shields.io/github/last-commit/runthis/forum)](https://github.com/runthis/forum/commits/master)
 
 
