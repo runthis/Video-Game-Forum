@@ -35,6 +35,7 @@
     - [x] Delete `owner of post or staff`
     - [ ] Sticky `staff`
     - [ ] Archive `staff`
+    - [ ] Report posts
 - [ ] Replies
     - [x] View
     - [x] Native emoji support
@@ -42,6 +43,7 @@
     - [ ] Edit `owner of message or staff`
     - [ ] Delete `owner of message or staff`
     - [ ] Sticky `owner of post or staff`
+    - [ ] Report replies
 - [ ] Avatars
     - [ ] Create
     - [ ] Change
@@ -85,4 +87,5 @@
         - [ ] Busiest posts
         - [ ] Find posts/replies with keywords
             - [ ] Delete, Archive, Edit
+    - [ ] View/Act on reported posts/replies
 
