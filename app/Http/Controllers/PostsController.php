@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Posts;
@@ -10,8 +9,6 @@ use Session;
 
 class PostsController extends Controller
 {
-	use SoftDeletes;
-
 	/**
 	 * The link to send the request to after a post has been made
 	 *
