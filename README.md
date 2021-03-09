@@ -1,11 +1,11 @@
 # Video Game Forum
 
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/runthis/forum/unit-feature-tests/master)](https://github.com/runthis/forum/actions)
-[![Travis CI](https://badgen.net/travis/runthis/Video-Game-Forum)](https://travis-ci.com/github/runthis/Video-Game-Forum/builds/)
+[![Unit Tests](https://github.com/runthis/Video-Game-Forum/actions/workflows/php.yml/badge.svg)](https://github.com/runthis/forum/actions)
 [![GitHub last commit](https://img.shields.io/github/last-commit/runthis/forum)](https://github.com/runthis/forum/commits/master)
 [![Languages](https://img.shields.io/github/languages/count/runthis/Video-Game-Forum)](https://github.com/runthis/Video-Game-Forum/search?l=PHP)
 [![Main Languages](https://img.shields.io/github/languages/top/runthis/Video-Game-Forum)](https://github.com/runthis/Video-Game-Forum/search?l=PHP)
-
+[![PHP Support](https://badgen.net/badge/php/%3E=7.3/blue?icon=github)](https://github.com/runthis/Video-Game-Forum/search?l=PHP)
 
 ![image](https://user-images.githubusercontent.com/8216720/110219523-57940280-7e85-11eb-8c2b-c2447adede03.png)
 
