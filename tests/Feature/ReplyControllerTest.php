@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Posts;
+use App\Models\Reply;
 
 class ReplyControllerTest extends TestCase
 {
@@ -64,5 +65,111 @@ class ReplyControllerTest extends TestCase
 		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseHas('replies', ['body' => $data['comment']]);
+	}
+
+	public function test_can_edit_reply()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => $this->faker->paragraph];
+
+		$this->withSession(['forum.user' => 2])->post(route('replies.edit'), $edit_data);
+
+		$this->assertDatabaseHas('replies', ['body' => $edit_data['replyBody']]);
+	}
+
+	public function test_can_not_edit_reply_wrong_user()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => $this->faker->paragraph];
+
+		$this->withSession(['forum.user' => 1])->post(route('replies.edit'), $edit_data);
+
+		// Assert that the body never changed
+		$this->assertDatabaseHas('replies', ['body' => $reply->body]);
+	}
+
+	public function test_can_not_edit_reply_no_body()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => ''];
+
+		$this->withSession(['forum.user' => 2])->post(route('replies.edit'), $edit_data);
+
+		// Assert that the body never changed
+		$this->assertDatabaseHas('replies', ['body' => $reply->body]);
+	}
+
+	public function test_can_not_edit_reply_short_body()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => 'abc'];
+
+		$this->withSession(['forum.user' => 2])->post(route('replies.edit'), $edit_data);
+
+		// Assert that the body never changed
+		$this->assertDatabaseHas('replies', ['body' => $reply->body]);
+	}
+
+	public function test_can_not_edit_reply_long_body()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => implode(',', $this->faker->paragraphs(50))];
+
+		$this->withSession(['forum.user' => 2])->post(route('replies.edit'), $edit_data);
+
+		// Assert that the body never changed
+		$this->assertDatabaseHas('replies', ['body' => $reply->body]);
+	}
+
+	public function test_can_edit_reply_with_emoji()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => '💀😸😾🙈🐯'];
+
+		$this->withSession(['forum.user' => 2])->post(route('replies.edit'), $edit_data);
+
+		$this->assertDatabaseHas('replies', ['body' => $edit_data['replyBody']]);
 	}
 }

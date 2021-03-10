@@ -139,7 +139,7 @@
 							</center>
 						</td>
 						
-						<td valign="top">
+						<td valign="top" width="100%">
 							<div class="ml-2">
 
 								<img class="mb-2" style="max-height: 20px;width: 15px;" src="{{ asset('img/avatars/default.png') }}">
@@ -149,25 +149,45 @@
 								<span class="thread-reply-details ml-3">
 									{{$reply->created_at->diffForHumans()}}
 								</span>
-								<div class="edit-reply-input" id="edit-2207">
-									<textarea class="comment-edit-input" rows="8" placeholder="Type something here"></textarea>
-
-									<div class="mt-1 mb-5">
-										<button class="comment-edit-save btn-dark" data-id="2207">
-											save edit
-										</button>
-										<button class="comment-edit-cancel btn-dark" data-id="2207">
-											cancel edit
-										</button>
-									</div>
-								</div>
 								
-								<div class="thread-reply mt-2" id="reply-2207">
+								
+								@if(Session::get('last_reply_edit') == $reply->id)
+									@error('replyBody')
+										<div class="text-warning mb-4">Edit Error: {{ $message }} Please try to edit the reply again.</div>
+									@enderror
+								@endif
+								
+								<div class="thread-reply mt-2" id="thread-reply-{{$reply->id}}">
 									{!! $reply->body !!}
 								</div>
 								
+								@if(Session::get('forum.user') == $reply->owner || Session::get('forum.role') > 1)
+								<form class="thread-reply-edit" id="thread-reply-edit-{{$reply->id}}" action="{{ url('/editReply') }}" method="post">
+									@csrf
+									
+									<textarea name="replyBody" class="comment-input" rows="8" placeholder="Type a comment here">{!! str_replace('<br />','',$reply->body) !!}</textarea>
+									<input type="hidden" name="reply" value="{{ $reply->id }}">
+									<input type="hidden" name="link" value="{{ $post->link }}">
+									
+									<div class="mt-1">
+										<button class="btn-dark">edit reply</button>
+									</div>
+								</form>
+								@endif
+								
 							</div>
 						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="thread-article-actions mt-1">
+				<table>
+					<tr>
+						@if(Session::get('forum.user') == $reply->owner || Session::get('forum.role') > 1)
+						<td><span class="thread-action" data-action="editReply" data-reply="{{ $reply->id }}">edit</span></td>
+						<td><span class="thread-action" data-action="deleteReply" data-reply="{{ $reply->id }}" data-url="{{ url('/deleteReply') }}" data-token="{{ csrf_token() }}">delete</span></td>
+						@endif
 					</tr>
 				</table>
 			</div>

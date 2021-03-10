@@ -412,8 +412,12 @@ html,body {
 	box-shadow: 0px 0px 4px 1px rgba( 255, 158, 0, 0.2 );
 }
 
-#thread-main-edit {
+#thread-main-edit, .thread-reply-edit {
 	display: none;
+}
+
+.thread-reply-active {
+	box-shadow: 0 0 2px 1px #9e9e00;
 }
 
 @media(min-height: 470px) {
