@@ -41,8 +41,9 @@
     - [ ] Report posts
 - [ ] Replies
     - [x] View
-    - [x] Native emoji support
     - [x] Create
+    - [x] Native emoji support
+    - [x] Rate limit
     - [x] Edit `owner of message or staff`
     - [x] Link directly to a reply
     - [x] Delete `owner of message or staff`
