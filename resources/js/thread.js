@@ -11,6 +11,8 @@ if( $(hash).length ) {
 
 $('.thread-action').on('click', function() {
 	switch($(this).data('action')) {
+		
+		// Posts
 		case 'edit':
 			$('#thread-main').toggle();
 			$('#thread-main-edit').toggle();
@@ -22,9 +24,16 @@ $('.thread-action').on('click', function() {
 			});
 		break;
 		
+		// Replies
 		case 'editReply':
 			$('#thread-reply-' + $(this).data('reply')).toggle();
 			$('#thread-reply-edit-' + $(this).data('reply')).toggle();
+		break;
+		
+		case 'deleteReply':
+			$.post($(this).data('url'), {reply: $(this).data('reply'), _token: $(this).data('token')}, function() {
+				window.location.reload();
+			});
 		break;
 	}
 });

@@ -68,6 +68,7 @@ Route::group(['middleware' => ['user.authenticated', 'throttle:posts']], functio
 // Throttle reply creates
 Route::group(['middleware' => ['user.authenticated', 'throttle:replies']], function () {
 	Route::post('thread/{page}', 'App\Http\Controllers\ReplyController@create')->name('replies.create');
+	Route::post('deleteReply', 'App\Http\Controllers\ReplyController@delete')->name('replies.delete');
 });
 
 // When all else fails, go home

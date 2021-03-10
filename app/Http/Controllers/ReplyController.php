@@ -61,4 +61,20 @@ class ReplyController extends Controller
 
 		return redirect($redirect);
 	}
+
+	/**
+	 * Delete a forum post reply
+	 *
+	 * @param Request $request
+	 *
+	 * @return void
+	 */
+	public function delete(Request $request): void
+	{
+		$reply = Reply::select('owner')->where('id', $request->reply)->first();
+
+		if ($reply->owner == Session::get('forum.user') || Session::get('forum.role') > 1) {
+			Reply::find($request->reply)->delete();
+		}
+	}
 }

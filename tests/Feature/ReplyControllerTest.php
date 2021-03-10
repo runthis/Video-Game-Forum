@@ -26,7 +26,7 @@ class ReplyControllerTest extends TestCase
 	{
 		$post = Posts::find(1);
 		$data = ['post' => 1, 'comment' => $this->faker->paragraph];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseHas('replies', ['body' => $data['comment']]);
 	}
@@ -35,7 +35,7 @@ class ReplyControllerTest extends TestCase
 	{
 		$post = Posts::find(1);
 		$data = ['post' => 1, 'comment' => $this->faker->paragraph];
-		$response = $this->post('/thread/' . $post->link, $data);
+		$this->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseMissing('replies', ['body' => $data['comment']]);
 	}
@@ -44,7 +44,7 @@ class ReplyControllerTest extends TestCase
 	{
 		$post = Posts::find(1);
 		$data = ['post' => 1, 'comment' => ''];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseMissing('replies', ['body' => $data['comment']]);
 	}
@@ -53,7 +53,7 @@ class ReplyControllerTest extends TestCase
 	{
 		$post = Posts::find(1);
 		$data = ['post' => 1, 'comment' => implode(',', $this->faker->paragraphs(50))];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseMissing('replies', ['body' => $data['comment']]);
 	}
@@ -62,7 +62,7 @@ class ReplyControllerTest extends TestCase
 	{
 		$post = Posts::find(1);
 		$data = ['post' => 1, 'comment' => '💀😸😾🙈🐯'];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseHas('replies', ['body' => $data['comment']]);
 	}
@@ -74,7 +74,7 @@ class ReplyControllerTest extends TestCase
 
 		$post = Posts::find(1);
 		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
 		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => $this->faker->paragraph];
@@ -91,7 +91,7 @@ class ReplyControllerTest extends TestCase
 
 		$post = Posts::find(1);
 		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
 		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => $this->faker->paragraph];
@@ -109,7 +109,7 @@ class ReplyControllerTest extends TestCase
 
 		$post = Posts::find(1);
 		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
 		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => ''];
@@ -127,7 +127,7 @@ class ReplyControllerTest extends TestCase
 
 		$post = Posts::find(1);
 		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
 		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => 'abc'];
@@ -145,7 +145,7 @@ class ReplyControllerTest extends TestCase
 
 		$post = Posts::find(1);
 		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
 		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => implode(',', $this->faker->paragraphs(50))];
@@ -163,7 +163,7 @@ class ReplyControllerTest extends TestCase
 
 		$post = Posts::find(1);
 		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
-		$response = $this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
 		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => '💀😸😾🙈🐯'];
@@ -171,5 +171,33 @@ class ReplyControllerTest extends TestCase
 		$this->withSession(['forum.user' => 2])->post(route('replies.edit'), $edit_data);
 
 		$this->assertDatabaseHas('replies', ['body' => $edit_data['replyBody']]);
+	}
+
+	public function test_can_delete_reply()
+	{
+		$post = Posts::find(1);
+		$data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
+
+		$reply = Reply::where('post', $post->id)->first();
+		$delete_data = ['reply' => $reply->id];
+
+		$this->withSession(['forum.user' => 2])->post(route('replies.delete'), $delete_data);
+
+		$this->assertSoftDeleted($reply);
+	}
+
+	public function test_can_not_delete_reply_with_wrong_user()
+	{
+		$post = Posts::find(1);
+		$data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
+
+		$reply = Reply::where('post', $post->id)->first();
+		$delete_data = ['reply' => $reply->id];
+
+		$this->withSession(['forum.user' => 1])->post(route('replies.delete'), $delete_data);
+
+		$this->assertDatabaseHas('replies', ['id' => $reply->id]);
 	}
 }

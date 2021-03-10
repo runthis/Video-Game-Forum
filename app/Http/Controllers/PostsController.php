@@ -88,6 +88,13 @@ class PostsController extends Controller
 		return redirect('/thread/' . $request->link);
 	}
 
+	/**
+	 * Delete a forum post
+	 *
+	 * @param Request $request
+	 *
+	 * @return void
+	 */
 	public function delete(Request $request): void
 	{
 		$post = Posts::select('owner')->where('id', $request->post)->first();
@@ -97,7 +104,14 @@ class PostsController extends Controller
 		}
 	}
 
-	private function link_exists(string $link)
+	/**
+	 * Check if a forum post link exists
+	 *
+	 * @param string $link
+	 *
+	 * @return boolean
+	 */
+	private function link_exists(string $link): bool
 	{
 		$post = Posts::where('link', $link);
 
