@@ -36,7 +36,7 @@
     - [x] Rate limit
     - [x] Edit `owner of post or staff`
     - [x] Delete `owner of post or staff`
-    - [ ] Sticky `staff`
+    - [x] Sticky `staff`
     - [ ] Archive `staff`
     - [ ] Report posts
 - [ ] Replies

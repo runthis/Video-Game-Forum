@@ -200,4 +200,23 @@ class PostsController extends Controller
 
 		return $this->generate_link($link);
 	}
+
+	/**
+	 * Toggle a posts sticky
+	 *
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function sticky(Request $request): \Illuminate\Http\RedirectResponse
+	{
+		$post = Posts::where('id', $request->post)->first();
+		$sticky = ($post->sticky == 0 ? 1 : 0);
+
+		if (Session::get('forum.role') > 1) {
+			Posts::where('id', $request->post)->update(['sticky' => $sticky]);
+		}
+
+		return redirect('/thread/' . $request->link);
+	}
 }

@@ -71,6 +71,11 @@ Route::group(['middleware' => ['user.authenticated', 'throttle:replies']], funct
 	Route::post('deleteReply', 'App\Http\Controllers\ReplyController@delete')->name('replies.delete');
 });
 
+// Staff actions
+Route::group(['middleware' => ['user.authenticated', 'user.staff']], function () {
+	Route::post('stickyPost', 'App\Http\Controllers\PostsController@sticky')->name('posts.sticky');
+});
+
 // When all else fails, go home
 Route::fallback(function () {
 	return redirect()->route('home');

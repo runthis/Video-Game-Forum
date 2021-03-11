@@ -192,4 +192,52 @@ class PostsControllerTest extends TestCase
 
 		$this->assertDatabaseHas('posts', ['id' => $post->id]);
 	}
+
+	public function test_can_sticky_post()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+
+		$sticky_data = ['post' => $post->id];
+		$this->withSession(['forum.user' => 2, 'forum.role' => 2])->post(route('posts.sticky'), $sticky_data);
+
+		$expected = 1;
+		$post_sticky = Posts::find(1);
+
+		$this->assertEquals($expected, $post_sticky->sticky);
+	}
+
+	public function test_can_sticky_post_with_different_user()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+
+		$sticky_data = ['post' => $post->id];
+		$this->withSession(['forum.user' => 11, 'forum.role' => 2])->post(route('posts.sticky'), $sticky_data);
+
+		$expected = 1;
+		$post_sticky = Posts::find(1);
+
+		$this->assertEquals($expected, $post_sticky->sticky);
+	}
+
+	public function test_can_not_sticky_post_with_bad_role()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+
+		$sticky_data = ['post' => $post->id];
+		$this->withSession(['forum.user' => 2, 'forum.role' => 1])->post(route('posts.sticky'), $sticky_data);
+
+		$expected = 0;
+		$post_sticky = Posts::find(1);
+
+		$this->assertEquals($expected, $post_sticky->sticky);
+	}
 }

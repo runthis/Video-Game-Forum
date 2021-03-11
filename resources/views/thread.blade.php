@@ -103,6 +103,19 @@
 						<td><span class="thread-action" data-action="edit">edit</span></td>
 						<td><span class="thread-action" data-action="delete" data-post="{{ $post->id }}" data-url="{{ url('/deletePost') }}" data-token="{{ csrf_token() }}">delete</span></td>
 						@endif
+						
+						@if(Session::get('forum.role') > 1)
+						<td>
+							<span class="thread-action" data-action="sticky" data-post="{{ $post->id }}" data-url="{{ url('/stickyPost') }}" data-token="{{ csrf_token() }}">
+								@if($post->sticky == 0)
+									sticky
+								@else
+									unsticky
+								@endif
+							</span>
+						</td>
+						@endif
+						
 					</tr>
 				</table>
 			</div>

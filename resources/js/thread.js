@@ -24,6 +24,14 @@ $('.thread-action').on('click', function() {
 			});
 		break;
 		
+		case 'sticky':
+			$.post($(this).data('url'), {post: $(this).data('post'), _token: $(this).data('token')}, function() {
+				window.location.reload();
+			});
+		break;
+		
+		
+		
 		// Replies
 		case 'editReply':
 			$('#thread-reply-' + $(this).data('reply')).toggle();
