@@ -167,6 +167,24 @@ class PostsControllerTest extends TestCase
 		$this->assertDatabaseMissing('posts', ['body' => $edit_data['body']]);
 	}
 
+	public function test_can_not_edit_post_when_locked()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+
+		$lock_data = ['post' => $post->id];
+		$this->withSession(['forum.user' => 2, 'forum.role' => 1])->post(route('posts.lock'), $lock_data);
+
+		$post = Posts::find(1);
+		$edit_data = ['post' => $post->id, 'link' => $post->link, 'body' => $this->faker->paragraph];
+
+		$this->withSession(['forum.user' => 1])->post(route('posts.edit'), $edit_data);
+
+		$this->assertDatabaseMissing('posts', ['body' => $edit_data['body']]);
+	}
+
 	public function test_can_delete_post()
 	{
 		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
@@ -239,5 +257,37 @@ class PostsControllerTest extends TestCase
 		$post_sticky = Posts::find(1);
 
 		$this->assertEquals($expected, $post_sticky->sticky);
+	}
+
+	public function test_can_lock_post()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+
+		$lock_data = ['post' => $post->id];
+		$this->withSession(['forum.user' => 2, 'forum.role' => 2])->post(route('posts.lock'), $lock_data);
+
+		$expected = 1;
+		$post_lock = Posts::find(1);
+
+		$this->assertEquals($expected, $post_lock->lock);
+	}
+
+	public function test_can_not_lock_post_with_bad_role()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+
+		$lock_data = ['post' => $post->id];
+		$this->withSession(['forum.user' => 2, 'forum.role' => 1])->post(route('posts.lock'), $lock_data);
+
+		$expected = 0;
+		$post_lock = Posts::find(1);
+
+		$this->assertEquals($expected, $post_lock->lock);
 	}
 }

@@ -37,7 +37,7 @@
     - [x] Edit `owner of post or staff`
     - [x] Delete `owner of post or staff`
     - [x] Sticky `staff`
-    - [ ] Archive `staff`
+    - [ ] Lock `staff`
     - [ ] Report posts
 - [ ] Replies
     - [x] View

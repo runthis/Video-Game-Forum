@@ -35,6 +35,13 @@ $('.thread-action').on('click', function() {
 			});
 		break;
 		
+		case 'lock':
+			var original = $(this);
+			$.post($(this).data('url'), {post: $(this).data('post'), _token: $(this).data('token')}, function() {
+				window.location.reload();
+			});
+		break;
+		
 		
 		
 		// Replies

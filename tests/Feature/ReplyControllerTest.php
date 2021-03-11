@@ -156,6 +156,27 @@ class ReplyControllerTest extends TestCase
 		$this->assertDatabaseHas('replies', ['body' => $reply->body]);
 	}
 
+	public function test_can_not_edit_reply_when_locked()
+	{
+		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
+
+		$post = Posts::find(1);
+		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
+
+		$lock_data = ['post' => $post->id];
+		$this->withSession(['forum.user' => 2, 'forum.role' => 1])->post(route('posts.lock'), $lock_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+		$edit_data = ['reply' => $reply->id, 'link' => $post->link, 'replyBody' => $this->faker->paragraph];
+
+		$this->withSession(['forum.user' => 1])->post(route('replies.edit'), $edit_data);
+
+		// Assert that the body never changed
+		$this->assertDatabaseHas('replies', ['body' => $reply->body]);
+	}
+
 	public function test_can_edit_reply_with_emoji()
 	{
 		$post_data = ['subject' => $this->faker->sentence, 'body' => $this->faker->paragraph];

@@ -39,7 +39,7 @@ class PostsController extends Controller
 	 */
 	public function get_posts(int $page = 1): object
 	{
-		return Posts::select('id', 'owner', 'subject', 'link', 'sticky', 'created_at')->skip((($page - 1) * 10))->take(10)->orderBy('sticky', 'desc')->latest()->get();
+		return Posts::select('id', 'owner', 'subject', 'link', 'sticky', 'lock', 'created_at')->skip((($page - 1) * 10))->take(10)->orderBy('sticky', 'desc')->latest()->get();
 	}
 
 	/**
@@ -52,7 +52,7 @@ class PostsController extends Controller
 	public function get_single_post(string $link)
 	{
 		if ($this->link_exists($link)) {
-			return Posts::select('id', 'owner', 'subject', 'body', 'link', 'sticky', 'created_at')->where('link', $link)->first();
+			return Posts::select('id', 'owner', 'subject', 'body', 'link', 'sticky', 'lock', 'created_at')->where('link', $link)->first();
 		}
 	}
 
@@ -81,7 +81,7 @@ class PostsController extends Controller
 
 		$post = Posts::select('owner')->where('id', $request->post)->first();
 
-		if ($post->owner == Session::get('forum.user') || Session::get('forum.role') > 1) {
+		if ($post->lock == 0 && ($post->owner == Session::get('forum.user') || Session::get('forum.role') > 1)) {
 			Posts::where('id', $request->post)->update(['body' => $request->body]);
 		}
 
@@ -99,7 +99,7 @@ class PostsController extends Controller
 	{
 		$post = Posts::select('owner')->where('id', $request->post)->first();
 
-		if ($post->owner == Session::get('forum.user') || Session::get('forum.role') > 1) {
+		if ($post->lock == 0 && ($post->owner == Session::get('forum.user') || Session::get('forum.role') > 1)) {
 			Posts::find($request->post)->delete();
 		}
 	}
@@ -215,6 +215,23 @@ class PostsController extends Controller
 
 		if (Session::get('forum.role') > 1) {
 			Posts::where('id', $request->post)->update(['sticky' => $sticky]);
+		}
+	}
+
+	/**
+	 * Toggle a posts lock status
+	 *
+	 * @param Request $request
+	 *
+	 * @return void
+	 */
+	public function lock(Request $request): void
+	{
+		$post = Posts::where('id', $request->post)->first();
+		$lock = ($post->lock == 0 ? 1 : 0);
+
+		if (Session::get('forum.role') > 1) {
+			Posts::where('id', $request->post)->update(['lock' => $lock]);
 		}
 	}
 }

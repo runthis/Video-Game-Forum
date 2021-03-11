@@ -99,12 +99,14 @@
 						<td>{{ $post->reply->count() }} comment{{ ($post->reply->count() == 1 ? '' : 's') }}</td>
 						<td><span class="thread-action" data-action="share">share</span></td>
 						
-						@if(Session::get('forum.user') == $post->owner || Session::get('forum.role') > 1)
+						@if( $post->lock == 0 && (Session::get('forum.user') == $post->owner || Session::get('forum.role') > 1))
 						<td><span class="thread-action" data-action="edit">edit</span></td>
 						<td><span class="thread-action" data-action="delete" data-post="{{ $post->id }}" data-url="{{ url('/deletePost') }}" data-token="{{ csrf_token() }}">delete</span></td>
 						@endif
 						
 						@if(Session::get('forum.role') > 1)
+						
+						<!-- Staff: sticky post -->
 						<td>
 							<span class="thread-action" data-action="sticky" data-post="{{ $post->id }}" data-url="{{ url('/stickyPost') }}" data-token="{{ csrf_token() }}">
 								@if($post->sticky == 0)
@@ -114,13 +116,24 @@
 								@endif
 							</span>
 						</td>
+						
+						<!-- Staff: lock post -->
+						<td>
+							<span class="thread-action" data-action="lock" data-post="{{ $post->id }}" data-url="{{ url('/lockPost') }}" data-token="{{ csrf_token() }}">
+								@if($post->lock == 0)
+									lock
+								@else
+									<span class="text-warning">unlock</span>
+								@endif
+							</span>
+						</td>
 						@endif
 						
 					</tr>
 				</table>
 			</div>
 			
-			@if(Session::get('forum.user'))
+			@if(Session::get('forum.user') && $post->lock == 0)
 			<div class="thread-article mt-3">
 				<form method="post">
 					@csrf
@@ -197,7 +210,7 @@
 			<div class="thread-article-actions mt-1">
 				<table>
 					<tr>
-						@if(Session::get('forum.user') == $reply->owner || Session::get('forum.role') > 1)
+						@if($post->lock == 0 && (Session::get('forum.user') == $reply->owner || Session::get('forum.role') > 1))
 						<td><span class="thread-action" data-action="editReply" data-reply="{{ $reply->id }}">edit</span></td>
 						<td><span class="thread-action" data-action="deleteReply" data-reply="{{ $reply->id }}" data-url="{{ url('/deleteReply') }}" data-token="{{ csrf_token() }}">delete</span></td>
 						@endif

@@ -74,6 +74,7 @@ Route::group(['middleware' => ['user.authenticated', 'throttle:replies']], funct
 // Staff actions
 Route::group(['middleware' => ['user.authenticated', 'user.staff']], function () {
 	Route::post('stickyPost', 'App\Http\Controllers\PostsController@sticky')->name('posts.sticky');
+	Route::post('lockPost', 'App\Http\Controllers\PostsController@lock')->name('posts.lock');
 });
 
 // When all else fails, go home

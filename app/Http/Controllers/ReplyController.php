@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Reply;
+use App\Models\Posts;
 use Session;
 
 class ReplyController extends Controller
@@ -23,12 +24,16 @@ class ReplyController extends Controller
 			'comment' => 'required|min:1|max:2048'
 		]);
 
-		Reply::create([
-			'owner' => $request->session()->get('forum.user'),
-			'ip' => $request->ip(),
-			'post' => $request->post,
-			'body' => $request->comment
-		]);
+		$post = Posts::where('id', $request->post)->first();
+
+		if ($post->lock == 0) {
+			Reply::create([
+				'owner' => $request->session()->get('forum.user'),
+				'ip' => $request->ip(),
+				'post' => $request->post,
+				'body' => $request->comment
+			]);
+		}
 
 		return redirect($request->url());
 	}
@@ -53,9 +58,10 @@ class ReplyController extends Controller
 			return redirect($redirect)->withErrors($validator)->withInput();
 		}
 
-		$reply = Reply::select('owner')->where('id', $request->reply)->first();
+		$reply = Reply::select('owner', 'post')->where('id', $request->reply)->first();
+		$post = Posts::where('id', $reply->post)->first();
 
-		if ($reply->owner == Session::get('forum.user') || Session::get('forum.role') > 1) {
+		if ($post->lock == 0 && ($reply->owner == Session::get('forum.user') || Session::get('forum.role') > 1)) {
 			Reply::where('id', $request->reply)->update(['body' => $request->replyBody]);
 		}
 
@@ -71,9 +77,10 @@ class ReplyController extends Controller
 	 */
 	public function delete(Request $request): void
 	{
-		$reply = Reply::select('owner')->where('id', $request->reply)->first();
+		$reply = Reply::select('owner', 'post')->where('id', $request->reply)->first();
+		$post = Posts::where('id', $reply->post)->first();
 
-		if ($reply->owner == Session::get('forum.user') || Session::get('forum.role') > 1) {
+		if ($post->lock == 0 && ($reply->owner == Session::get('forum.user') || Session::get('forum.role') > 1)) {
 			Reply::find($request->reply)->delete();
 		}
 	}
