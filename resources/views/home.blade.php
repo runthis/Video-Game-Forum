@@ -57,7 +57,7 @@
 						<div class="thread-content mt-1">
 							<div class="thread-title">
 								<a href="thread/{{$post->link}}/">
-									{{$post->subject}}
+									{{ ($post->lock == 0 ? '' : '🔒') }} {{$post->subject}}
 								</a>
 							</div>
 							
