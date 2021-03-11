@@ -55,8 +55,14 @@ Route::group(['middleware' => 'user.authenticated'], function () {
 	// Edit a post
 	Route::post('editPost', 'App\Http\Controllers\PostsController@edit')->name('posts.edit');
 
+	// Report a post
+	Route::post('reportPost', 'App\Http\Controllers\ReportController@post')->name('reports.post');
+
 	// Edit a reply
 	Route::post('editReply', 'App\Http\Controllers\ReplyController@edit')->name('replies.edit');
+
+	// Report a reply
+	Route::post('reportReply', 'App\Http\Controllers\ReportController@reply')->name('reports.reply');
 
 	// Sticky a reply
 	Route::post('stickyReply', 'App\Http\Controllers\ReplyController@sticky')->name('replies.sticky');

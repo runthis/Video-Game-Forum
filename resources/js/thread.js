@@ -42,6 +42,13 @@ $('.thread-action').on('click', function() {
 			});
 		break;
 		
+		case 'report':
+			var original = $(this);
+			$.post($(this).data('url'), {post: $(this).data('post'), _token: $(this).data('token')}, function() {
+				original.parent().html('<span class="text-warning">reported</span>');
+			});
+		break;
+		
 		
 		
 		// Replies
@@ -78,6 +85,13 @@ $('.thread-action').on('click', function() {
 					
 					$('.thread-all-replies .thread-article:last-child').after(actions);
 				}
+			});
+		break;
+		
+		case 'reportReply':
+			var original = $(this);
+			$.post($(this).data('url'), {reply: $(this).data('reply'), _token: $(this).data('token')}, function() {
+				original.parent().html('<span class="text-warning">reported</span>');
 			});
 		break;
 	}

@@ -28,7 +28,7 @@
 - [x] Login
 - [x] Pagination
 - [x] Seo stuffs
-- [ ] Posts
+- [x] Posts
     - [x] View
     - [x] Pretty urls
     - [x] Create
@@ -38,8 +38,8 @@
     - [x] Delete `owner of post or staff`
     - [x] Sticky `staff`
     - [x] Lock `staff`
-    - [ ] Report posts
-- [ ] Replies
+    - [x] Report posts
+- [x] Replies
     - [x] View
     - [x] Create
     - [x] Native emoji support
@@ -48,7 +48,7 @@
     - [x] Link directly to a reply
     - [x] Delete `owner of message or staff`
     - [x] Sticky `owner of post or staff`
-    - [ ] Report replies
+    - [x] Report replies
 - [ ] Avatars
     - [ ] Create
     - [ ] Change

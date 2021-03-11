@@ -129,6 +129,10 @@
 						</td>
 						@endif
 						
+						@if(Session::get('forum.user'))
+							<td><span class="thread-action" data-action="report" data-post="{{ $post->id }}" data-url="{{ url('/reportPost') }}" data-token="{{ csrf_token() }}">report</span></td>
+						@endif
+						
 					</tr>
 				</table>
 			</div>
@@ -222,6 +226,10 @@
 									@endif
 								</span>
 							</td>
+							@endif
+						
+							@if(Session::get('forum.user'))
+								<td><span class="thread-action" data-action="reportReply" data-reply="{{ $reply->id }}" data-url="{{ url('/reportReply') }}" data-token="{{ csrf_token() }}">report</span></td>
 							@endif
 						</tr>
 					</table>
