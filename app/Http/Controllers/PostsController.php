@@ -206,9 +206,9 @@ class PostsController extends Controller
 	 *
 	 * @param Request $request
 	 *
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @return void
 	 */
-	public function sticky(Request $request): \Illuminate\Http\RedirectResponse
+	public function sticky(Request $request): void
 	{
 		$post = Posts::where('id', $request->post)->first();
 		$sticky = ($post->sticky == 0 ? 1 : 0);
@@ -216,7 +216,5 @@ class PostsController extends Controller
 		if (Session::get('forum.role') > 1) {
 			Posts::where('id', $request->post)->update(['sticky' => $sticky]);
 		}
-
-		return redirect('/thread/' . $request->link);
 	}
 }

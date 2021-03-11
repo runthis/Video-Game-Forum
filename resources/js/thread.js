@@ -25,8 +25,13 @@ $('.thread-action').on('click', function() {
 		break;
 		
 		case 'sticky':
+			var original = $(this);
 			$.post($(this).data('url'), {post: $(this).data('post'), _token: $(this).data('token')}, function() {
-				window.location.reload();
+				if( original.text().trim() == 'sticky' ) {
+					original.html('<span class="text-warning">unsticky</span>');
+				} else {
+					original.text('sticky');
+				}
 			});
 		break;
 		

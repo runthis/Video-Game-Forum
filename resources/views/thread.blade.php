@@ -110,7 +110,7 @@
 								@if($post->sticky == 0)
 									sticky
 								@else
-									unsticky
+									<span class="text-warning">unsticky</span>
 								@endif
 							</span>
 						</td>
