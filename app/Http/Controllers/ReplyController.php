@@ -84,4 +84,22 @@ class ReplyController extends Controller
 			Reply::find($request->reply)->delete();
 		}
 	}
+
+	/**
+	 * Toggle a replies sticky
+	 *
+	 * @param Request $request
+	 *
+	 * @return void
+	 */
+	public function sticky(Request $request): void
+	{
+		$reply = Reply::select('owner', 'post', 'sticky')->where('id', $request->reply)->first();
+		$post = Posts::where('id', $reply->post)->first();
+		$sticky = ($reply->sticky == 0 ? 1 : 0);
+
+		if (Session::get('forum.user') == $post->owner || Session::get('forum.role') > 1) {
+			Reply::where('id', $request->reply)->update(['sticky' => $sticky]);
+		}
+	}
 }

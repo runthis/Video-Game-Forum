@@ -55,5 +55,30 @@ $('.thread-action').on('click', function() {
 				window.location.reload();
 			});
 		break;
+		
+		case 'stickyReply':
+			var original = $(this);
+			$.post($(this).data('url'), {reply: $(this).data('reply'), _token: $(this).data('token')}, function() {
+				if( original.text().trim() == 'sticky' ) {
+					let actions = original.closest('.thread-article-actions');
+					
+					original.html('<span class="text-warning">unsticky</span>');
+					
+					actions.prev().addClass('thread-reply-sticky');
+					actions.prev().prependTo('.thread-all-replies');
+					
+					$('.thread-all-replies .thread-article:first-child').after(actions);
+				} else {
+					let actions = original.closest('.thread-article-actions');
+					
+					original.text('sticky');
+					
+					actions.prev().removeClass('thread-reply-sticky');
+					actions.prev().appendTo('.thread-all-replies');
+					
+					$('.thread-all-replies .thread-article:last-child').after(actions);
+				}
+			});
+		break;
 	}
 });

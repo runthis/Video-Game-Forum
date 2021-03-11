@@ -57,6 +57,9 @@ Route::group(['middleware' => 'user.authenticated'], function () {
 
 	// Edit a reply
 	Route::post('editReply', 'App\Http\Controllers\ReplyController@edit')->name('replies.edit');
+
+	// Sticky a reply
+	Route::post('stickyReply', 'App\Http\Controllers\ReplyController@sticky')->name('replies.sticky');
 });
 
 // Throttle post creates and deletes

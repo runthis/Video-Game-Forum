@@ -25,7 +25,7 @@ class ReplyControllerTest extends TestCase
 	public function test_can_add_reply()
 	{
 		$post = Posts::find(1);
-		$data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseHas('replies', ['body' => $data['comment']]);
@@ -34,7 +34,7 @@ class ReplyControllerTest extends TestCase
 	public function test_can_not_add_reply_logged_out()
 	{
 		$post = Posts::find(1);
-		$data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseMissing('replies', ['body' => $data['comment']]);
@@ -43,7 +43,7 @@ class ReplyControllerTest extends TestCase
 	public function test_can_not_add_empty_reply()
 	{
 		$post = Posts::find(1);
-		$data = ['post' => 1, 'comment' => ''];
+		$data = ['post' => $post->id, 'comment' => ''];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseMissing('replies', ['body' => $data['comment']]);
@@ -52,7 +52,7 @@ class ReplyControllerTest extends TestCase
 	public function test_can_not_add_long_reply_body()
 	{
 		$post = Posts::find(1);
-		$data = ['post' => 1, 'comment' => implode(',', $this->faker->paragraphs(50))];
+		$data = ['post' => $post->id, 'comment' => implode(',', $this->faker->paragraphs(50))];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseMissing('replies', ['body' => $data['comment']]);
@@ -61,7 +61,7 @@ class ReplyControllerTest extends TestCase
 	public function test_can_add_emoji_in_reply_body()
 	{
 		$post = Posts::find(1);
-		$data = ['post' => 1, 'comment' => '💀😸😾🙈🐯'];
+		$data = ['post' => $post->id, 'comment' => '💀😸😾🙈🐯'];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$this->assertDatabaseHas('replies', ['body' => $data['comment']]);
@@ -73,7 +73,7 @@ class ReplyControllerTest extends TestCase
 		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
 
 		$post = Posts::find(1);
-		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$reply_data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
@@ -90,7 +90,7 @@ class ReplyControllerTest extends TestCase
 		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
 
 		$post = Posts::find(1);
-		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$reply_data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
@@ -108,7 +108,7 @@ class ReplyControllerTest extends TestCase
 		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
 
 		$post = Posts::find(1);
-		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$reply_data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
@@ -126,7 +126,7 @@ class ReplyControllerTest extends TestCase
 		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
 
 		$post = Posts::find(1);
-		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$reply_data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
@@ -144,7 +144,7 @@ class ReplyControllerTest extends TestCase
 		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
 
 		$post = Posts::find(1);
-		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$reply_data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
@@ -162,7 +162,7 @@ class ReplyControllerTest extends TestCase
 		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
 
 		$post = Posts::find(1);
-		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$reply_data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$lock_data = ['post' => $post->id];
@@ -183,7 +183,7 @@ class ReplyControllerTest extends TestCase
 		$this->withSession(['forum.user' => 2])->post(route('posts.create'), $post_data);
 
 		$post = Posts::find(1);
-		$reply_data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$reply_data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $reply_data);
 
 		$reply = Reply::where('post', $post->id)->first();
@@ -197,7 +197,7 @@ class ReplyControllerTest extends TestCase
 	public function test_can_delete_reply()
 	{
 		$post = Posts::find(1);
-		$data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$reply = Reply::where('post', $post->id)->first();
@@ -211,7 +211,7 @@ class ReplyControllerTest extends TestCase
 	public function test_can_not_delete_reply_with_wrong_user()
 	{
 		$post = Posts::find(1);
-		$data = ['post' => 1, 'comment' => $this->faker->paragraph];
+		$data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
 		$this->withSession(['forum.user' => 2])->post('/thread/' . $post->link, $data);
 
 		$reply = Reply::where('post', $post->id)->first();
@@ -220,5 +220,65 @@ class ReplyControllerTest extends TestCase
 		$this->withSession(['forum.user' => 1])->post(route('replies.delete'), $delete_data);
 
 		$this->assertDatabaseHas('replies', ['id' => $reply->id]);
+	}
+
+	public function test_can_sticky_reply_as_post_owner()
+	{
+		$post = Posts::find(1);
+		$data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
+
+		$this->withSession(['forum.user' => 1])->post('/thread/' . $post->link, $data);
+
+		$post = Posts::find(1);
+		$sticky_data = ['reply' => $post->id];
+
+		$this->withSession(['forum.user' => 2])->post(route('replies.sticky'), $sticky_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+
+		$expected = 1;
+		$reply_sticky = Reply::where('id', $reply->id)->first();
+
+		$this->assertEquals($expected, $reply_sticky->sticky);
+	}
+
+	public function test_can_sticky_reply_as_staff()
+	{
+		$post = Posts::find(1);
+		$data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
+
+		$this->withSession(['forum.user' => 1])->post('/thread/' . $post->link, $data);
+
+		$post = Posts::find(1);
+		$sticky_data = ['reply' => $post->id];
+
+		$this->withSession(['forum.user' => 3, 'forum.role' => 2])->post(route('replies.sticky'), $sticky_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+
+		$expected = 1;
+		$reply_sticky = Reply::where('id', $reply->id)->first();
+
+		$this->assertEquals($expected, $reply_sticky->sticky);
+	}
+
+	public function test_can_not_sticky_reply_with_bad_role()
+	{
+		$post = Posts::find(1);
+		$data = ['post' => $post->id, 'comment' => $this->faker->paragraph];
+
+		$this->withSession(['forum.user' => 1])->post('/thread/' . $post->link, $data);
+
+		$post = Posts::find(1);
+		$sticky_data = ['reply' => $post->id];
+
+		$this->withSession(['forum.user' => 3, 'forum.role' => 1])->post(route('replies.sticky'), $sticky_data);
+
+		$reply = Reply::where('post', $post->id)->first();
+
+		$expected = 0;
+		$reply_sticky = Reply::where('id', $reply->id)->first();
+
+		$this->assertEquals($expected, $reply_sticky->sticky);
 	}
 }

@@ -420,6 +420,13 @@ html,body {
 	box-shadow: 0 0 2px 1px #9e9e00;
 }
 
+.thread-reply-sticky {
+	background-color: rgba(255, 255, 0, 0.08);
+	box-shadow: 0px 0px 5px #fff500 inset, 0px 0px 5px #fff500;
+	border-radius: 10px;
+	border-width: 0px;
+}
+
 @media(min-height: 470px) {
 	.my-avatar {
 		display: block;

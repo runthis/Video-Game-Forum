@@ -26,7 +26,7 @@ class Posts extends Model
 
 	public function reply()
 	{
-		return $this->hasMany(Reply::class, 'post');
+		return $this->hasMany(Reply::class, 'post')->orderBy('sticky', 'desc')->orderBy('created_at', 'asc');
 	}
 
 	public function getBodyAttribute($value)

@@ -152,73 +152,83 @@
 			</div>
 			@endif
 			
-			@foreach ($post->reply as $reply)
-			<div class="thread-article mt-3">
-			
-				<table class="thread-reply-container">
-					<tr>
-						<td valign="top">
-							<center>
-								<i class="icon-upvote icon-upvote-reply" data-id="2207"></i>
-								<div class="vote-count" data-id="2207">2</div>
-								<i class="icon-downvote icon-downvote-reply" data-id="2207"></i>
-							</center>
-						</td>
-						
-						<td valign="top" width="100%">
-							<div class="ml-2">
+			<div class="thread-all-replies">
+				@foreach ($post->reply as $reply)
+				<div class="thread-article mt-3 {{ ($reply->sticky == 0 ? '' : 'thread-reply-sticky') }}">
+				
+					<table class="thread-reply-container">
+						<tr>
+							<td valign="top">
+								<center>
+									<i class="icon-upvote icon-upvote-reply" data-id="2207"></i>
+									<div class="vote-count" data-id="2207">2</div>
+									<i class="icon-downvote icon-downvote-reply" data-id="2207"></i>
+								</center>
+							</td>
+							
+							<td valign="top" width="100%">
+								<div class="ml-2">
 
-								<img class="mb-2" style="max-height: 20px;width: 15px;" src="{{ asset('img/avatars/default.png') }}">
+									<img class="mb-2" style="max-height: 20px;width: 15px;" src="{{ asset('img/avatars/default.png') }}">
 
-								<span class="thread-author">{{$reply->user->name}}</span>
-								
-								<span class="thread-reply-details ml-3">
-									{{$reply->created_at->diffForHumans()}}
-								</span>
-								
-								
-								@if(Session::get('last_reply_edit') == $reply->id)
-									@error('replyBody')
-										<div class="text-warning mb-4">Edit Error: {{ $message }} Please try to edit the reply again.</div>
-									@enderror
-								@endif
-								
-								<div class="thread-reply mt-2" id="thread-reply-{{$reply->id}}">
-									{!! $reply->body !!}
-								</div>
-								
-								@if(Session::get('forum.user') == $reply->owner || Session::get('forum.role') > 1)
-								<form class="thread-reply-edit" id="thread-reply-edit-{{$reply->id}}" action="{{ url('/editReply') }}" method="post">
-									@csrf
+									<span class="thread-author">{{$reply->user->name}}</span>
+									<span class="thread-reply-details ml-3">{{$reply->created_at->diffForHumans()}}</span>
 									
-									<textarea name="replyBody" class="comment-input" rows="8" placeholder="Type a comment here">{!! str_replace('<br />','',$reply->body) !!}</textarea>
-									<input type="hidden" name="reply" value="{{ $reply->id }}">
-									<input type="hidden" name="link" value="{{ $post->link }}">
+									@if(Session::get('last_reply_edit') == $reply->id)
+										@error('replyBody')
+											<div class="text-warning mb-4">Edit Error: {{ $message }} Please try to edit the reply again.</div>
+										@enderror
+									@endif
 									
-									<div class="mt-1">
-										<button class="btn-dark">edit reply</button>
+									<div class="thread-reply mt-2" id="thread-reply-{{$reply->id}}">
+										{!! $reply->body !!}
 									</div>
-								</form>
-								@endif
-								
-							</div>
-						</td>
-					</tr>
-				</table>
+									
+									@if(Session::get('forum.user') == $reply->owner || Session::get('forum.role') > 1)
+									<form class="thread-reply-edit" id="thread-reply-edit-{{$reply->id}}" action="{{ url('/editReply') }}" method="post">
+										@csrf
+										
+										<textarea name="replyBody" class="comment-input" rows="8" placeholder="Type a comment here">{!! str_replace('<br />','',$reply->body) !!}</textarea>
+										<input type="hidden" name="reply" value="{{ $reply->id }}">
+										<input type="hidden" name="link" value="{{ $post->link }}">
+										
+										<div class="mt-1">
+											<button class="btn-dark">edit reply</button>
+										</div>
+									</form>
+									@endif
+									
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="thread-article-actions mt-1">
+					<table>
+						<tr>
+							@if($post->lock == 0 && (Session::get('forum.user') == $reply->owner || Session::get('forum.role') > 1))
+							<td><span class="thread-action" data-action="editReply" data-reply="{{ $reply->id }}">edit</span></td>
+							<td><span class="thread-action" data-action="deleteReply" data-reply="{{ $reply->id }}" data-url="{{ url('/deleteReply') }}" data-token="{{ csrf_token() }}">delete</span></td>
+							@endif
+							
+							@if(Session::get('forum.user') == $post->owner || Session::get('forum.role') > 1)
+							<td>
+								<span class="thread-action" data-action="stickyReply" data-reply="{{ $reply->id }}" data-url="{{ url('/stickyReply') }}" data-token="{{ csrf_token() }}">
+									@if($reply->sticky == 0)
+										sticky
+									@else
+										<span class="text-warning">unsticky</span>
+									@endif
+								</span>
+							</td>
+							@endif
+						</tr>
+					</table>
+				</div>
+				
+				@endforeach
 			</div>
-			
-			<div class="thread-article-actions mt-1">
-				<table>
-					<tr>
-						@if($post->lock == 0 && (Session::get('forum.user') == $reply->owner || Session::get('forum.role') > 1))
-						<td><span class="thread-action" data-action="editReply" data-reply="{{ $reply->id }}">edit</span></td>
-						<td><span class="thread-action" data-action="deleteReply" data-reply="{{ $reply->id }}" data-url="{{ url('/deleteReply') }}" data-token="{{ csrf_token() }}">delete</span></td>
-						@endif
-					</tr>
-				</table>
-			</div>
-			
-			@endforeach
 		</div>
 	</div>
 	
