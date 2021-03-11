@@ -65,6 +65,7 @@ class AuthController extends Controller
 
 		$request->session()->put('forum.user', $user_data['id']);
 		$request->session()->put('forum.name', $user_data['name']);
+		$request->session()->put('forum.role', $user_data['role']);
 		$request->session()->put('forum.lastAction', 'login');
 		$request->session()->put('forum.lastActionTime', time());
 
