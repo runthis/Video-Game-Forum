@@ -47,7 +47,7 @@
     - [x] Edit `owner of message or staff`
     - [x] Link directly to a reply
     - [x] Delete `owner of message or staff`
-    - [ ] Sticky `owner of post or staff`
+    - [x] Sticky `owner of post or staff`
     - [ ] Report replies
 - [ ] Avatars
     - [ ] Create
