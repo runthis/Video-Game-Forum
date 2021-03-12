@@ -58,6 +58,15 @@ Route::group(['middleware' => 'user.authenticated'], function () {
 	// Report a post
 	Route::post('reportPost', 'App\Http\Controllers\ReportController@post')->name('reports.post');
 
+	// Report a post
+	Route::post('reportPost', 'App\Http\Controllers\ReportController@post')->name('reports.post');
+
+	// Upvote a post
+	Route::post('upvotePost', 'App\Http\Controllers\VoteController@postup')->name('votes.postup');
+
+	// Downvote a post
+	Route::post('downvotePost', 'App\Http\Controllers\VoteController@postdown')->name('votes.postdown');
+
 	// Edit a reply
 	Route::post('editReply', 'App\Http\Controllers\ReplyController@edit')->name('replies.edit');
 
@@ -66,6 +75,12 @@ Route::group(['middleware' => 'user.authenticated'], function () {
 
 	// Sticky a reply
 	Route::post('stickyReply', 'App\Http\Controllers\ReplyController@sticky')->name('replies.sticky');
+
+	// Upvote a reply
+	Route::post('upvoteReply', 'App\Http\Controllers\VoteController@replyup')->name('votes.replyup');
+
+	// Downvote a reply
+	Route::post('downvoteReply', 'App\Http\Controllers\VoteController@replydown')->name('votes.replydown');
 });
 
 // Throttle post creates and deletes

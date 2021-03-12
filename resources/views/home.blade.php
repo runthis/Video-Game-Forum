@@ -41,11 +41,17 @@
 		<div class="thread {{$post['sticky'] ? 'thread-sticky' : ''}}">
 			<table class="w-100 h-100">
 				<tr>
-					<td class="thread-voting pl-3 pt-3" valign="top">
+					<td class="thread-voting pl-3 pt-2" valign="top">
 						<div class="w-100 text-center">
-							<i class="icon-upvote" data-id="{{$post['id']}}"></i>
-							<div class="vote-count" data-id="{{$post['id']}}">9</div>
-							<i class="icon-downvote" data-id="{{$post['id']}}"></i>
+							<span class="home-action {{ (($post->vote->where('owner', Session::get('forum.user'))->firstWhere('vote', 1)) ? 'voted' : '') }}" data-action="upvotePost" data-post="{{ $post->id }}" data-url="{{ url('/upvotePost') }}" data-token="{{ csrf_token() }}">
+								<i class="icon-upvote"></i>
+							</span>
+							
+							<div class="vote-count">{{$post->vote->sum('vote')}}</div>
+							
+							<span class="home-action {{ (($post->vote->where('owner', Session::get('forum.user'))->firstWhere('vote', -1)) ? 'voted' : '') }}" data-action="downvotePost" data-post="{{ $post->id }}" data-url="{{ url('/downvotePost') }}" data-token="{{ csrf_token() }}">
+								<i class="icon-downvote"></i>
+							</span>
 						</div>
 					</td>
 					

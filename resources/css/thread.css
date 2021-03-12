@@ -427,6 +427,10 @@ html,body {
 	border-width: 0px;
 }
 
+.voted {
+	color: #FFB200;
+}
+
 @media(min-height: 470px) {
 	.my-avatar {
 		display: block;

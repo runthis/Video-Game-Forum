@@ -49,6 +49,9 @@
     - [x] Delete `owner of message or staff`
     - [x] Sticky `owner of post or staff`
     - [x] Report replies
+- [x] Voting on posts and replies
+    - [x] Upvote
+    - [x] Downvote
 - [ ] Avatars
     - [ ] Create
     - [ ] Change
@@ -60,9 +63,6 @@
     - [ ] Setup 2fa `owner of account`
     - [ ] Request GDPR package `owner of account or staff`
     - [ ] Request GDPR delete `owner of account`
-- [ ] Voting
-    - [ ] Upvote
-    - [ ] Downvote
 - [ ] Admin
     - [ ] Site config (admin)
         - [ ] Forum name

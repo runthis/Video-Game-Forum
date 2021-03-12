@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class Reply extends Model
+class Vote extends Model
 {
 	use HasFactory;
 	use SoftDeletes;
 
 	protected $fillable = [
 		'owner',
-		'ip',
+		'vote',
 		'post',
-		'body'
+		'reply'
 	];
 
 	public function post()
@@ -23,18 +23,8 @@ class Reply extends Model
 		return $this->belongsTo(Posts::class, 'post');
 	}
 
-	public function user()
+	public function reply()
 	{
-		return $this->belongsTo(User::class, 'owner');
-	}
-
-	public function vote()
-	{
-		return $this->hasMany(Vote::class, 'reply');
-	}
-
-	public function getBodyAttribute($value)
-	{
-		return nl2br(htmlentities($value, ENT_QUOTES, 'UTF-8'));
+		return $this->belongsTo(Reply::class, 'reply');
 	}
 }

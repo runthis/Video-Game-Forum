@@ -218,6 +218,10 @@ html,body {
 	display: block;
 }
 
+.voted {
+	color: #FFB200;
+}
+
 
 @media(min-height: 470px) {
 	.my-avatar {

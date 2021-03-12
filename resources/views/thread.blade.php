@@ -38,11 +38,15 @@
 					<td valign="top" class="thread-voting pl-3 pt-2" valign="top">
 						<div class="w-100 mt-1">
 							<center>
-								<i class="icon-upvote"></i>
-
-								<div class="vote-count vote-count-main">2</div>
-
-								<i class="icon-downvote"></i>
+								<span class="thread-action {{ (($post->vote->where('owner', Session::get('forum.user'))->firstWhere('vote', 1)) ? 'voted' : '') }}" data-action="upvote" data-post="{{ $post->id }}" data-url="{{ url('/upvotePost') }}" data-token="{{ csrf_token() }}">
+									<i class="icon-upvote"></i>
+								</span>
+								
+								<div class="vote-count">{{$post->vote->sum('vote')}}</div>
+								
+								<span class="thread-action {{ (($post->vote->where('owner', Session::get('forum.user'))->firstWhere('vote', -1)) ? 'voted' : '') }}" data-action="downvote" data-post="{{ $post->id }}" data-url="{{ url('/downvotePost') }}" data-token="{{ csrf_token() }}">
+									<i class="icon-downvote"></i>
+								</span>
 							</center>
 						</div>
 					</td>
@@ -162,11 +166,17 @@
 				
 					<table class="thread-reply-container">
 						<tr>
-							<td valign="top">
+							<td valign="top" class="thread-reply-voting" >
 								<center>
-									<i class="icon-upvote icon-upvote-reply" data-id="2207"></i>
-									<div class="vote-count" data-id="2207">2</div>
-									<i class="icon-downvote icon-downvote-reply" data-id="2207"></i>
+									<span class="thread-action {{ (($reply->vote->where('owner', Session::get('forum.user'))->firstWhere('vote', 1)) ? 'voted' : '') }}" data-action="upvoteReply" data-reply="{{ $reply->id }}" data-url="{{ url('/upvoteReply') }}" data-token="{{ csrf_token() }}">
+										<i class="icon-upvote"></i>
+									</span>
+									
+									<div class="vote-count">{{$reply->vote->sum('vote')}}</div>
+									
+									<span class="thread-action {{ (($reply->vote->where('owner', Session::get('forum.user'))->firstWhere('vote', -1)) ? 'voted' : '') }}" data-action="downvoteReply" data-reply="{{ $reply->id }}" data-url="{{ url('/downvoteReply') }}" data-token="{{ csrf_token() }}">
+										<i class="icon-downvote"></i>
+									</span>
 								</center>
 							</td>
 							

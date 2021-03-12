@@ -29,6 +29,11 @@ class Posts extends Model
 		return $this->hasMany(Reply::class, 'post')->orderBy('sticky', 'desc')->orderBy('created_at', 'asc');
 	}
 
+	public function vote()
+	{
+		return $this->hasMany(Vote::class, 'post');
+	}
+
 	public function getBodyAttribute($value)
 	{
 		return nl2br(htmlentities($value, ENT_QUOTES, 'UTF-8'));

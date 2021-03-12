@@ -49,6 +49,40 @@ $('.thread-action').on('click', function() {
 			});
 		break;
 		
+		case 'upvote':
+			var original = $(this);
+			$.post($(this).data('url'), {post: $(this).data('post'), _token: $(this).data('token')}, function( $data ) {
+				original.closest('.thread-voting').find('.voted').removeClass('voted');
+				original.next().text($data['votes']);
+				
+				switch($data['status']) {
+					case 'deleted':
+						original.removeClass('voted');
+					break;
+					case 'created':
+						original.addClass('voted');
+					break;
+				}
+			});
+		break;
+		
+		case 'downvote':
+			var original = $(this);
+			$.post($(this).data('url'), {post: $(this).data('post'), _token: $(this).data('token')}, function( $data ) {
+				original.closest('.thread-voting').find('.voted').removeClass('voted');
+				original.prev().text($data['votes']);
+				
+				switch($data['status']) {
+					case 'deleted':
+						original.removeClass('voted');
+					break;
+					case 'created':
+						original.addClass('voted');
+					break;
+				}
+			});
+		break;
+		
 		
 		
 		// Replies
@@ -92,6 +126,40 @@ $('.thread-action').on('click', function() {
 			var original = $(this);
 			$.post($(this).data('url'), {reply: $(this).data('reply'), _token: $(this).data('token')}, function() {
 				original.parent().html('<span class="text-warning">reported</span>');
+			});
+		break;
+		
+		case 'upvoteReply':
+			var original = $(this);
+			$.post($(this).data('url'), {reply: $(this).data('reply'), _token: $(this).data('token')}, function( $data ) {
+				original.closest('.thread-reply-voting').find('.voted').removeClass('voted');
+				original.next().text($data['votes']);
+				
+				switch($data['status']) {
+					case 'deleted':
+						original.removeClass('voted');
+					break;
+					case 'created':
+						original.addClass('voted');
+					break;
+				}
+			});
+		break;
+		
+		case 'downvoteReply':
+			var original = $(this);
+			$.post($(this).data('url'), {reply: $(this).data('reply'), _token: $(this).data('token')}, function( $data ) {
+				original.closest('.thread-reply-voting').find('.voted').removeClass('voted');
+				original.prev().text($data['votes']);
+				
+				switch($data['status']) {
+					case 'deleted':
+						original.removeClass('voted');
+					break;
+					case 'created':
+						original.addClass('voted');
+					break;
+				}
 			});
 		break;
 	}
