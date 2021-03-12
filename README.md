@@ -57,12 +57,19 @@
     - [ ] Change
     - [ ] Delete `owner of account or staff`
 - [ ] Users
+    - [ ] Logout `owner of account or staff`
     - [ ] Change display name `owner of account or staff`
     - [ ] Change email `owner of account or staff`
     - [ ] Change password `owner of account or staff`
     - [ ] Setup 2fa `owner of account`
     - [ ] Request GDPR package `owner of account or staff`
+            - [ ] Username
+            - [ ] Email
+            - [ ] IP Addresses
     - [ ] Request GDPR delete `owner of account`
+        - [ ] Wipe email
+        - [ ] Wipe encrypted password
+         - [ ] Replace username with made up username
 - [ ] Admin
     - [ ] Site config (admin)
         - [ ] Forum name
@@ -82,8 +89,14 @@
         - [ ] Ban
         - [ ] Rate limit (posts or replies allowed in x timeframe)
         - [ ] Mass archive or mass delete posts or replies
-        - [ ] GDPR package data and email (admin)
+        - [ ] GDPR package data (admin)
+            - [ ] Username
+            - [ ] Email
+            - [ ] IP Addresses
         - [ ] GDPR delete account (admin)
+            - [ ] Wipe email
+            - [ ] Wipe encrypted password
+            - [ ] Replace username with made up username
         - [ ] Change user role (admin)
     - [ ] Stats / Helpers (staff, admin)
         - [ ] New users
