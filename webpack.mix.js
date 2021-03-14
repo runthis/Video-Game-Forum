@@ -34,17 +34,9 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.scripts([
 	'resources/js/scrollbars.js',
-	'resources/js/home.js'
-], 'public/js/home.js').options({
-	processCssUrls: false
-}).version();
-
-
-mix.scripts([
-	'resources/js/scrollbars.js',
+	'resources/js/vote.js',
+	'resources/js/actions.js',
 	'resources/js/thread.js'
-], 'public/js/thread.js').options({
+], 'public/js/main.js').options({
 	processCssUrls: false
 }).version();
-
-

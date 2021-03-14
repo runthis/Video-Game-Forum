@@ -47,11 +47,6 @@ html,body {
 	line-height: 10px;
 }
 
-.thread-voting {
-	min-width: 50px;
-	width: 50px;
-}
-
 .thread-avatar {
 	min-width: 70px;
 	width: 70px;
@@ -350,10 +345,13 @@ html,body {
 	line-height: normal;
 }
 
+.thread-reply-container {
+	margin-left: -1rem;
+}
+
 .thread-reply-container:not(:first-child) {
 	margin-top: 25px;
 }
-
 
 .comment-edit-cancel {
 	box-shadow: 0px 0px 15px rgba(255,0,0,0.3) inset;
