@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'New Post')
+@section('title', 'New Forum Post')
 
 @push('styles')
 	<link href="{{ asset(mix('css/thread.css')) }}" rel="stylesheet">
