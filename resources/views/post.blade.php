@@ -29,7 +29,3 @@
 </div>
 
 @endsection
-
-@push('scripts')
-	<script src="{{ asset(mix('js/home.js')) }}"></script>
-@endpush
