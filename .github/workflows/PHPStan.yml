@@ -29,4 +29,4 @@ jobs:
       - name: Test PHP Stan
         run: |
           composer require --dev phpstan/phpstan
-          vendor/bin/phpstan analyse --level 8 app/Http/Controllers/PostsController.php
+          vendor/bin/phpstan analyse --level 8 app/Http/Controllers
