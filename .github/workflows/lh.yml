@@ -10,3 +10,4 @@ jobs:
         uses: foo-software/lighthouse-check-action@master
         with:
           urls: 'http://localhost/'
+        run: curl http://localhost/
