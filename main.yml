@@ -1,0 +1,12 @@
+name: Test Lighthouse Check
+on: [pull_request]
+
+jobs:
+  lighthouse-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          urls: 'http://localhost/'
